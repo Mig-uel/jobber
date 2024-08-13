@@ -12,6 +12,7 @@ import {
 // components
 import App from './App.jsx'
 import {
+  HomeLayout,
   DashboardLayout,
   AddJob,
   Admin,
@@ -28,11 +29,18 @@ import './index.css'
 
 const router = createBrowserRouter(
   createRoutesFromElements(
-    <Route>
-      <Route index path='/' element={<App />} />
-      <Route path='/register' element={<Register />} />
-      <Route path='/login' element={<Login />} />
-      <Route path='/dashboard' element={<DashboardLayout />}></Route>
+    <Route path='/' element={<App />}>
+      <Route index element={<Landing />} />
+      <Route path='register' element={<Register />} />
+      <Route path='login' element={<Login />} />
+
+      {/* dashboard nested routes */}
+      <Route path='dashboard' element={<DashboardLayout />}>
+        <Route index element={<AddJob />} />
+        <Route path='dashboard/admin' element={<Admin />} />
+        <Route path='dashboard/stats' element={<Stats />} />
+        <Route path='dashboard/profile' element={<Profile />} />
+      </Route>
     </Route>
   )
 )
