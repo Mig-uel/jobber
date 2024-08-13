@@ -1,5 +1,5 @@
 // components
-import HomeLayout from './pages/Home/HomeLayout'
+import { HomeLayout } from './pages'
 
 const App = () => {
   return <HomeLayout />
