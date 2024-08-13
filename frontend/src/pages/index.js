@@ -6,9 +6,9 @@ export { default as DeleteJob } from './DeleteJob'
 export { default as EditJob } from './EditJob'
 export { default as Error } from './Error/Error'
 export { default as Landing } from './Home/Landing'
-export { default as Login } from './Login'
+export { default as Login } from './Auth/Login'
 export { default as Profile } from './Profile'
-export { default as Register } from './Register'
+export { default as Register } from './Auth/Register'
 export { default as Stats } from './Stats'
 
 // exports all page components from this one file
