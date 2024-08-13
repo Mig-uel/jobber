@@ -1,9 +1,12 @@
-import { Link } from 'react-router-dom'
+import { Link, useRouteError } from 'react-router-dom'
 
 const Error = () => {
+  const error = useRouteError()
+  console.log(error)
+
   return (
     <div>
-      404 Not Found <Link to='/'>Go Back to Dashboard</Link>
+      {error.status} {error.statusText} <Link to='/'>Go Back to Dashboard</Link>
     </div>
   )
 }
