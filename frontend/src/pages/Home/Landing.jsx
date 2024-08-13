@@ -1,5 +1,7 @@
+import { Wrapper } from '../../styled/Landing'
+
 const Landing = () => {
-  return <h1>Landing</h1>
+  return <Wrapper>Landing</Wrapper>
 }
 
 export default Landing
