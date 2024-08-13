@@ -12,7 +12,6 @@ import {
 // components
 import App from './App.jsx'
 import {
-  HomeLayout,
   DashboardLayout,
   AddJob,
   Admin,
