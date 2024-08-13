@@ -1,5 +1,14 @@
+import { Outlet } from 'react-router-dom'
+
+// components
+import HomeLayout from './pages/HomeLayout'
+
 const App = () => {
-  return <h1>Jobber</h1>
+  return (
+    <HomeLayout>
+      <Outlet />
+    </HomeLayout>
+  )
 }
 
 export default App
