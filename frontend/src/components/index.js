@@ -1,2 +1,5 @@
 export { default as Logo } from './Logo'
 export { default as FormRow } from './FormRow'
+export { default as DesktopSidebar } from './DesktopSidebar'
+export { default as MobileSidebar } from './MobileSidebar'
+export { default as Navbar } from './Navbar'
