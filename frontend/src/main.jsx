@@ -13,6 +13,7 @@ import {
 import App from './App.jsx'
 import {
   DashboardLayout,
+  AllJobs,
   AddJob,
   Admin,
   DeleteJob,
@@ -36,6 +37,7 @@ const router = createBrowserRouter(
       {/* dashboard nested routes */}
       <Route path='dashboard' element={<DashboardLayout />}>
         <Route index element={<AddJob />} />
+        <Route path='/jobs' element={<AllJobs />} />
         <Route path='dashboard/admin' element={<Admin />} />
         <Route path='dashboard/stats' element={<Stats />} />
         <Route path='dashboard/profile' element={<Profile />} />
