@@ -24,5 +24,5 @@ FormRow.propTypes = {
   type: PropTypes.string.isRequired,
   name: PropTypes.string.isRequired,
   labelText: PropTypes.string,
-  defaultValue: PropTypes.string || PropTypes.number,
+  defaultValue: PropTypes.string,
 }
