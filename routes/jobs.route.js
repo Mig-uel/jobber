@@ -9,12 +9,24 @@ let jobs = [
 // router obj
 const router = Router()
 
-// GET /api/v1/jobs
+// GET /api/v1/jobs - all jobs
 router.get('/', (req, res) => {
   return res.status(200).json(jobs)
 })
 
-// POST /api/v1/jobs
+// GET /api/v1/jobs/:id - single job
+router.get('/:id', (req, res) => {
+  const { id } = req.params
+
+  const job = jobs.find((j) => j.id === id)
+
+  if (!job)
+    return res.status(404).json({ message: `No job found with ID '${id}'` })
+
+  return res.status(200).json(job)
+})
+
+// POST /api/v1/jobs - add job
 router.post('/', (req, res) => {
   const { company, position } = req.body
 
