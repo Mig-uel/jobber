@@ -7,7 +7,7 @@ const DesktopSidebar = () => {
 
   return (
     <Wrapper>
-      <div className={`sidebar-container ${showSidebar && 'show-sidebar'}`}>
+      <div className={`sidebar-container ${!showSidebar && 'show-sidebar'}`}>
         <div className='content'>
           <header>
             <Logo />
