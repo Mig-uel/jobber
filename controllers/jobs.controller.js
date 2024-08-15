@@ -83,7 +83,15 @@ export const createJob = async (req, res) => {
 export const deleteJob = async (req, res) => {
   const { id } = req.params
 
-  jobs = jobs.filter((job) => job.id !== id)
+  const job = await Job.findById(id)
 
-  return res.status(200).json(jobs)
+  if (!job) {
+    const error = new Error(`No job found with ID '${id}'`)
+    error.status = 404
+    throw error
+  }
+
+  await job.deleteOne()
+
+  return res.status(200).json({ message: 'Job deleted' })
 }
