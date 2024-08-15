@@ -6,7 +6,8 @@ import { ImProfile } from 'react-icons/im'
 export const links = [
   {
     text: 'add job',
-    path: '.',
+    // path: '.',
+    path: '/dashboard',
     icon: <FaWpforms />,
   },
   {
