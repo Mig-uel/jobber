@@ -12,7 +12,8 @@ const DesktopSidebar = () => {
           <header>
             <Logo />
           </header>
-          <NavLinks />
+          {/* boolean props can be passed without value */}
+          <NavLinks isDesktopSidebar />
         </div>
       </div>
     </Wrapper>
