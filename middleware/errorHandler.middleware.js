@@ -1,3 +1,11 @@
+export class NotFoundError extends Error {
+  constructor(message) {
+    super(message)
+    this.name = 'NotFoundError'
+    this.status = 404
+  }
+}
+
 export const errorHandler = (err, req, res, next) => {
   console.log(err)
 
