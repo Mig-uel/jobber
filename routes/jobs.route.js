@@ -1,65 +1,30 @@
-import { Router } from 'express'
-import { nanoid } from 'nanoid'
+import e, { Router } from 'express'
 
-let jobs = [
-  { id: nanoid(10), company: 'Apple', position: 'Front-End' },
-  { id: nanoid(10), company: 'Google', position: 'Back-End' },
-]
+// controllers
+import {
+  getJobs,
+  getJob,
+  editJob,
+  addJob,
+  deleteJob,
+} from '../controllers/jobs.controller.js'
 
 // router obj
 const router = Router()
 
 // GET /api/v1/jobs - all jobs
-router.get('/', (req, res) => {
-  return res.status(200).json(jobs)
-})
+router.get('/', getJobs)
 
 // GET /api/v1/jobs/:id - single job
-router.get('/:id', (req, res) => {
-  const { id } = req.params
-
-  const job = jobs.find((j) => j.id === id)
-
-  if (!job)
-    return res.status(404).json({ message: `No job found with ID '${id}'` })
-
-  return res.status(200).json(job)
-})
+router.get('/:id', getJob)
 
 // PATCH /api/v1/jobs/:id - edit job
-router.patch('/:id', (req, res) => {
-  const { id } = req.params
-  const { company, position } = req.body
-
-  const job = jobs.find((j) => j.id === id)
-  if (!job)
-    return res.status(404).json({ message: `No job found with ID '${id}'` })
-
-  job.company = company || job.company
-  job.position = position || job.position
-
-  return res.status(200).json(job)
-})
+router.patch('/:id', editJob)
 
 // POST /api/v1/jobs - add job
-router.post('/', (req, res) => {
-  const { company, position } = req.body
-
-  if (!company || !position) throw new Error('Please provide all fields')
-
-  const job = { id: nanoid(10), company, position }
-  jobs.push(job)
-
-  return res.status(201).json(job)
-})
+router.post('/', addJob)
 
 // DELETE /api/v1/jobs/:id - delete job
-router.delete('/:id', (req, res) => {
-  const { id } = req.params
-
-  jobs = jobs.filter((job) => job.id !== id)
-
-  return res.status(200).json(jobs)
-})
+router.delete('/:id', deleteJob)
 
 export default router
