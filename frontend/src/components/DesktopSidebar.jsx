@@ -1,7 +1,7 @@
 import { Wrapper } from '../styled/DesktopSidebar'
 
-const BigSidebar = () => {
+const DesktopSidebar = () => {
   return <Wrapper></Wrapper>
 }
 
-export default BigSidebar
+export default DesktopSidebar
