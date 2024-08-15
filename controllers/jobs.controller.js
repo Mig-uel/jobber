@@ -51,9 +51,11 @@ export const updateJob = async (req, res) => {
   if (!job)
     return res.status(404).json({ message: `No job found with ID '${id}'` })
 
-  job.company = company || job.company
-  job.position = position || job.position
-  job.location = location || job.location
+  // job.company = company || job.company
+  // job.position = position || job.position
+  // job.location = location || job.location
+
+  job.set(req.body)
 
   await job.save()
 
