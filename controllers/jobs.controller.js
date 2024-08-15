@@ -26,10 +26,13 @@ export const getJobs = async (req, res) => {
 export const getJob = async (req, res) => {
   const { id } = req.params
 
-  const job = jobs.find((j) => j.id === id)
+  const job = await Job.findById(id)
 
-  if (!job)
-    return res.status(404).json({ message: `No job found with ID '${id}'` })
+  if (!job) {
+    const error = new Error(`No job found with ID '${id}'`)
+    error.status = 404
+    throw error
+  }
 
   return res.status(200).json(job)
 }
