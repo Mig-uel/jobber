@@ -25,7 +25,7 @@ app.use('*', (req, res) => {
 }) // triggered if the resource does not exists
 
 // custom error handling
-app.use(errorHandler) // triggered by existing controllers (valid routes)
+app.use(errorHandler) // triggered by existing controllers (valid routes) + for synchronous requests
 
 try {
   await connectDB()
