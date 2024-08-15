@@ -18,7 +18,11 @@ const LogoutContainer = () => {
       </button>
 
       <div className={`dropdown ${showLogout && 'show-dropdown'}`}>
-        <button type='button' className='dropdown-btn' onClick={logoutUser}>
+        <button
+          type='button'
+          className='dropdown-btn'
+          onClick={(logoutUser, () => setShowLogout((prev) => !prev))}
+        >
           logout
         </button>
       </div>
