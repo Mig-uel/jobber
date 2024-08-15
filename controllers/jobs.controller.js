@@ -11,7 +11,7 @@ let jobs = [
  * @path /api/v1/jobs
  * @access PUBLIC
  */
-export const getJobs = (req, res) => {
+export const getJobs = async (req, res) => {
   return res.status(200).json(jobs)
 }
 
@@ -21,7 +21,7 @@ export const getJobs = (req, res) => {
  * @path /api/v1/jobs/:id
  * @access PUBLIC
  */
-export const getJob = (req, res) => {
+export const getJob = async (req, res) => {
   const { id } = req.params
 
   const job = jobs.find((j) => j.id === id)
@@ -38,7 +38,7 @@ export const getJob = (req, res) => {
  * @path /api/v1/jobs/:id
  * @access PRIVATE
  */
-export const editJob = (req, res) => {
+export const editJob = async (req, res) => {
   const { id } = req.params
   const { company, position } = req.body
 
@@ -58,7 +58,7 @@ export const editJob = (req, res) => {
  * @path /api/v1/jobs
  * @access PRIVATE
  */
-export const addJob = (req, res) => {
+export const addJob = async (req, res) => {
   const { company, position } = req.body
 
   if (!company || !position) throw new Error('Please provide all fields')
@@ -75,7 +75,7 @@ export const addJob = (req, res) => {
  * @path /api/v1/jobs/:id
  * @access PRIVATE
  */
-export const deleteJob = (req, res) => {
+export const deleteJob = async (req, res) => {
   const { id } = req.params
 
   jobs = jobs.filter((job) => job.id !== id)
