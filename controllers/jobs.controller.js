@@ -33,12 +33,12 @@ export const getJob = async (req, res) => {
 }
 
 /**
- * @desc EDIT JOB
+ * @desc UPDATE JOB
  * @method PATCH
  * @path /api/v1/jobs/:id
  * @access PRIVATE
  */
-export const editJob = async (req, res) => {
+export const updateJob = async (req, res) => {
   const { id } = req.params
   const { company, position } = req.body
 
@@ -53,12 +53,12 @@ export const editJob = async (req, res) => {
 }
 
 /**
- * @desc ADD JOB
+ * @desc CREATE JOB
  * @method POST
  * @path /api/v1/jobs
  * @access PRIVATE
  */
-export const addJob = async (req, res) => {
+export const createJob = async (req, res) => {
   const { company, position } = req.body
 
   if (!company || !position) throw new Error('Please provide all fields')
