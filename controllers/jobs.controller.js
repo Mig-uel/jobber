@@ -1,5 +1,10 @@
 import Job from '../models/job.model.js'
-import { NotFoundError } from '../middleware/errorHandler.middleware.js'
+import {
+  NotFoundError,
+  BadRequestError,
+  UnauthenticatedError,
+  UnauthorizedError,
+} from '../utils/errors.utils.js'
 import { nanoid } from 'nanoid'
 
 let jobs = [
