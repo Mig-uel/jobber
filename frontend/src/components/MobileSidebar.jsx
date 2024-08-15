@@ -6,13 +6,13 @@ import Logo from './Logo'
 import { NavLink } from 'react-router-dom'
 
 const MobileSidebar = () => {
-  const data = useDashboardContext()
+  const { showSidebar, toggleSidebar } = useDashboardContext()
 
   return (
     <Wrapper>
-      <div className='sidebar-container show-sidebar'>
+      <div className={`sidebar-container ${showSidebar && 'show-sidebar'}`}>
         <div className='content'>
-          <button type='button' className='close-btn'>
+          <button type='button' className='close-btn' onClick={toggleSidebar}>
             <FaTimes />
           </button>
           <header>
@@ -22,7 +22,13 @@ const MobileSidebar = () => {
             {links.map((link) => {
               const { path, text, icon } = link
               return (
-                <NavLink to={path} key={text} className='nav-link'>
+                <NavLink
+                  to={path}
+                  key={text}
+                  className='nav-link'
+                  onClick={toggleSidebar}
+                  end
+                >
                   <span className='icon'>{icon}</span> {text}
                 </NavLink>
               )
