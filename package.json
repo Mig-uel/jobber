@@ -2,6 +2,7 @@
   "name": "jobber",
   "version": "1.0.0",
   "main": "index.js",
+  "type": "module",
   "repository": "https://github.com/Mig-uel/jobber.git",
   "author": "Miguel <35431824+Mig-uel@users.noreply.github.com>",
   "license": "MIT",
