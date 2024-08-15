@@ -1,16 +1,17 @@
-import { createContext, useContext, useState, useRef, useEffect } from 'react'
+import { createContext, useContext, useState, useRef } from 'react'
 import { Outlet } from 'react-router-dom'
-import { Wrapper } from '../../styled/Dashboard'
 import { DesktopSidebar, MobileSidebar, Navbar } from '../../components'
+import { checkDefaultTheme } from '../../main'
+import { Wrapper } from '../../styled/Dashboard'
 import PropTypes from 'prop-types'
 
 // context
 const DashboardContext = createContext()
 
-const DashboardLayout = ({ isDarkThemeEnabled }) => {
+const DashboardLayout = () => {
   const user = { name: 'John' }
   const [showSidebar, setShowSidebar] = useState(false)
-  const [isDarkTheme, setIsDarkTheme] = useState(isDarkThemeEnabled)
+  const [isDarkTheme, setIsDarkTheme] = useState(checkDefaultTheme())
   const bodyRef = useRef(document.body.classList)
 
   // handlers
@@ -55,7 +56,3 @@ const DashboardLayout = ({ isDarkThemeEnabled }) => {
 export const useDashboardContext = () => useContext(DashboardContext)
 
 export default DashboardLayout
-
-DashboardLayout.propTypes = {
-  isDarkThemeEnabled: PropTypes.bool,
-}
