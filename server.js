@@ -2,6 +2,7 @@ import express from 'express'
 import morgan from 'morgan'
 import { configDotenv } from 'dotenv'
 configDotenv({})
+import { errorHandler } from './middleware/errorHandler.middleware.js'
 
 // routers
 import jobsRouter from './routes/jobs.route.js'
@@ -20,6 +21,9 @@ app.use('/api/v1/jobs', jobsRouter)
 app.use('*', (req, res) => {
   res.status(404).json({ message: 'Not found' })
 })
+
+// custom error handling
+app.use(errorHandler)
 
 app.listen(port, '0.0.0.0', () => {
   console.log(`SERVER RUNNING ON PORT: ${port}`)
