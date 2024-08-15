@@ -12,19 +12,10 @@ import {
 // router obj
 const router = Router()
 
-// GET /api/v1/jobs - all jobs
-router.get('/', getJobs)
+// /api/v1/jobs - GET get all jobs | POST add job
+router.route('/').get(getJobs).post(addJob)
 
-// GET /api/v1/jobs/:id - single job
-router.get('/:id', getJob)
-
-// PATCH /api/v1/jobs/:id - edit job
-router.patch('/:id', editJob)
-
-// POST /api/v1/jobs - add job
-router.post('/', addJob)
-
-// DELETE /api/v1/jobs/:id - delete job
-router.delete('/:id', deleteJob)
+// /api/v1/jobs/:id - GET get single job | PATCH edit job | DELETE remove job
+router.route('/:id').get(getJob).patch(editJob).delete(deleteJob)
 
 export default router
