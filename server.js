@@ -16,6 +16,11 @@ app.use(express.json())
 // routes
 app.use('/api/v1/jobs', jobsRouter)
 
+// not found route
+app.use('*', (req, res) => {
+  res.status(404).json({ message: 'Not found' })
+})
+
 app.listen(port, '0.0.0.0', () => {
   console.log(`SERVER RUNNING ON PORT: ${port}`)
 })
