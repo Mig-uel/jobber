@@ -1,3 +1,4 @@
+import 'express-async-errors'
 import morgan from 'morgan'
 import { configDotenv } from 'dotenv'
 configDotenv({})
