@@ -1,4 +1,5 @@
 import Job from '../models/job.model.js'
+import { NotFoundError } from '../middleware/errorHandler.middleware.js'
 import { nanoid } from 'nanoid'
 
 let jobs = [
@@ -29,9 +30,7 @@ export const getJob = async (req, res) => {
   const job = await Job.findById(id)
 
   if (!job) {
-    const error = new Error(`No job found with ID '${id}'`)
-    error.status = 404
-    throw error
+    throw new NotFoundError(`No job found with ID '${id}'`)
   }
 
   return res.status(200).json(job)
