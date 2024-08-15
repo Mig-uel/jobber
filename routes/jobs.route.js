@@ -45,8 +45,7 @@ router.patch('/:id', (req, res) => {
 router.post('/', (req, res) => {
   const { company, position } = req.body
 
-  if (!company || !position)
-    return res.status(400).json({ message: 'Please provide all fields' })
+  if (!company || !position) throw new Error('Please provide all fields')
 
   const job = { id: nanoid(10), company, position }
   jobs.push(job)
