@@ -12,7 +12,7 @@ const DashboardLayout = () => {
   const [isDarkTheme, setIsDarkTheme] = useState(false)
 
   // handlers
-  const toggleDarkTheme = () => console.log('toggle dark theme')
+  const toggleDarkTheme = () => setIsDarkTheme((prev) => !prev)
   const toggleSidebar = () => setShowSidebar((prev) => !prev)
   const logoutUser = () => console.log('logged out')
 
