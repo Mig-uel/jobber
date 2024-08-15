@@ -1,3 +1,4 @@
+import Job from '../models/job.model.js'
 import { nanoid } from 'nanoid'
 
 let jobs = [
@@ -12,6 +13,7 @@ let jobs = [
  * @access PUBLIC
  */
 export const getJobs = async (req, res) => {
+  const jobs = await Job.find({})
   return res.status(200).json(jobs)
 }
 
@@ -59,12 +61,12 @@ export const updateJob = async (req, res) => {
  * @access PRIVATE
  */
 export const createJob = async (req, res) => {
-  const { company, position } = req.body
+  const { company, position, location } = req.body
 
-  if (!company || !position) throw new Error('Please provide all fields')
+  if ((!company || !position, !location))
+    throw new Error('Please provide all fields')
 
-  const job = { id: nanoid(10), company, position }
-  jobs.push(job)
+  const job = await Job.create({ company, position, location })
 
   return res.status(201).json(job)
 }
