@@ -5,12 +5,6 @@ import {
   UnauthenticatedError,
   UnauthorizedError,
 } from '../utils/errors.utils.js'
-import { nanoid } from 'nanoid'
-
-let jobs = [
-  { id: nanoid(10), company: 'Apple', position: 'Front-End' },
-  { id: nanoid(10), company: 'Google', position: 'Back-End' },
-]
 
 /**
  * @desc GET ALL JOBS
