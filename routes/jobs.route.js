@@ -26,6 +26,15 @@ router.get('/:id', (req, res) => {
   return res.status(200).json(job)
 })
 
+// DELETE /api/v1/jobs/:id - delete job
+router.delete('/:id', (req, res) => {
+  const { id } = req.params
+
+  jobs = jobs.filter((job) => job.id !== id)
+
+  return res.status(200).json(jobs)
+})
+
 // POST /api/v1/jobs - add job
 router.post('/', (req, res) => {
   const { company, position } = req.body
