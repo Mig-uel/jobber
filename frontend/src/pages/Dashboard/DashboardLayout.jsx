@@ -3,7 +3,6 @@ import { Outlet } from 'react-router-dom'
 import { DesktopSidebar, MobileSidebar, Navbar } from '../../components'
 import { checkDefaultTheme } from '../../main'
 import { Wrapper } from '../../styled/Dashboard'
-import PropTypes from 'prop-types'
 
 // context
 const DashboardContext = createContext()
