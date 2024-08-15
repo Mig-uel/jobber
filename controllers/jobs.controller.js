@@ -45,16 +45,19 @@ export const getJob = async (req, res) => {
  */
 export const updateJob = async (req, res) => {
   const { id } = req.params
-  const { company, position } = req.body
+  const { company, position, location } = req.body
 
-  const job = jobs.find((j) => j.id === id)
+  const job = await Job.findById(id)
   if (!job)
     return res.status(404).json({ message: `No job found with ID '${id}'` })
 
   job.company = company || job.company
   job.position = position || job.position
+  job.location = location || job.location
 
-  return res.status(200).json(job)
+  await job.save()
+
+  return res.status(200).json({ message: 'Job modified', job })
 }
 
 /**
