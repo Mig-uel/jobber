@@ -27,13 +27,13 @@ import {
 } from './pages'
 import './index.css'
 
-const checkDefaultTheme = () => {
+export const checkDefaultTheme = () => {
   const isDarkTheme = localStorage.getItem('darkTheme') === 'true'
   document.body.classList.toggle('dark-theme', isDarkTheme)
   return isDarkTheme
 }
 
-const isDarkThemeEnabled = checkDefaultTheme()
+checkDefaultTheme()
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -43,10 +43,7 @@ const router = createBrowserRouter(
       <Route path='login' element={<Login />} />
 
       {/* dashboard nested routes */}
-      <Route
-        path='dashboard'
-        element={<DashboardLayout isDarkThemeEnabled={isDarkThemeEnabled} />}
-      >
+      <Route path='dashboard' element={<DashboardLayout />}>
         <Route index element={<AddJob />} />
         <Route path='jobs' element={<AllJobs />} />
         <Route path='admin' element={<Admin />} />
