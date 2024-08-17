@@ -1,15 +1,19 @@
-import { UnauthenticatedError } from '../utils/errors.utils.js'
+import { ROLE } from '../utils/constants.utils.js'
+import {
+  UnauthenticatedError,
+  UnauthorizedError,
+} from '../utils/errors.utils.js'
 import { verifyToken } from '../utils/jwt.utils.js'
 
-export const isAuth = async (req, res, next) => {
+export const isAuth = (req, res, next) => {
   const { token } = req.cookies
 
   if (!token) throw new UnauthenticatedError('Not authenticated')
 
-  next()
+  return next()
 }
 
-export const authenticateUser = async (req, res, next) => {
+export const authenticateUser = (req, res, next) => {
   const { token } = req.cookies
 
   try {
@@ -17,7 +21,7 @@ export const authenticateUser = async (req, res, next) => {
 
     req.user = { id, role }
 
-    next()
+    return next()
   } catch (error) {
     throw new UnauthenticatedError('Authentication failed')
   }
