@@ -10,14 +10,15 @@ import bcrypt from 'bcryptjs'
 export const register = async (req, res) => {
   const { firstName, lastName, email, password } = req.body
 
-  const salt = await bcrypt.genSalt()
-  const hashedPassword = await bcrypt.hash(password, salt)
+  // hashing password moved to user model schema
+  // const salt = await bcrypt.genSalt()
+  // const hashedPassword = await bcrypt.hash(password, salt)
 
-  const user = await User.create({
+  await User.create({
     firstName,
     lastName,
     email,
-    password: hashedPassword,
+    password,
   })
 
   return res.status(201).json({ message: 'User created' })
