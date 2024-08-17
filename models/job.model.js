@@ -1,8 +1,13 @@
-import mongoose from 'mongoose'
+import mongoose, { Schema, Types } from 'mongoose'
 import { STATUS, TYPE } from '../utils/constants.utils.js'
 
-const JobSchema = new mongoose.Schema(
+const JobSchema = new Schema(
   {
+    user: {
+      type: Types.ObjectId,
+      ref: 'User',
+      required: true,
+    },
     company: {
       type: String,
       required: true,
