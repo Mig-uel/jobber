@@ -15,8 +15,7 @@ export const authenticateUser = async (req, res, next) => {
   try {
     const { id, role } = verifyToken(token)
 
-    req.id = id
-    req.role = role
+    req.user = { id, role }
 
     next()
   } catch (error) {
