@@ -1,4 +1,5 @@
 import User from '../models/user.model.js'
+import { UnauthenticatedError } from '../utils/errors.utils.js'
 
 /**
  * @desc REGISTER
@@ -26,5 +27,15 @@ export const register = async (req, res) => {
  * @access PUBLIC
  */
 export const login = async (req, res) => {
-  return res.status(200).json({ message: 'hello' })
+  const { email, password } = req.body
+
+  const user = await User.findOne({ email })
+
+  if (!user) throw new UnauthenticatedError('Invalid email/password')
+
+  const isPasswordCorrect = await user.isPasswordCorrect(password)
+  if (!isPasswordCorrect)
+    throw new UnauthenticatedError('Invalid email/password')
+
+  return res.status(200).json(user)
 }
