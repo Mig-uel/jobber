@@ -6,7 +6,7 @@ import jwt from 'jsonwebtoken'
 
 /**
  * GENERATES JWT
- * @param {id, role} payload
+ * @param {{id: ObjectId, role: string}} payload
  * @returns {token} token
  */
 export const createToken = (payload) => {
@@ -15,4 +15,14 @@ export const createToken = (payload) => {
   })
 
   return token
+}
+
+/**
+ * VERIFIES JWT
+ * @param {jwt} token
+ */
+export const verifyToken = (token) => {
+  const decoded = jwt.verify(token, process.env.JWT_SECRET_KEY)
+
+  return decoded
 }
