@@ -7,5 +7,8 @@ import Job from '../models/job.model.js'
  * @path /api/v1/admin/stats
  */
 export const getStats = async (req, res) => {
-  return res.status(200).json({ message: 'you are admin!' })
+  const usersCount = await User.estimatedDocumentCount()
+  const jobsCount = await Job.estimatedDocumentCount()
+
+  return res.status(200).json({ users: usersCount, jobs: jobsCount })
 }
