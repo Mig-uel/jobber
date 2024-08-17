@@ -4,6 +4,7 @@ import { configDotenv } from 'dotenv'
 configDotenv({})
 import express from 'express'
 import mongoose from 'mongoose'
+import cookieParser from 'cookie-parser'
 import { connectDB } from './utils/db.utils.js'
 import { errorHandler } from './middleware/errorHandler.middleware.js'
 
@@ -17,6 +18,7 @@ const port = process.env.PORT || 5100
 // middleware
 process.env.NODE_ENV === 'dev' && app.use(morgan('dev')) // logs only in dev mode
 app.use(express.json())
+app.use(cookieParser())
 
 // routes
 app.use('/api/v1/jobs', jobsRouter)
