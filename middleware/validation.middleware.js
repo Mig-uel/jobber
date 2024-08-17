@@ -1,5 +1,6 @@
 import mongoose from 'mongoose'
 import Job from '../models/job.model.js'
+import User from '../models/user.model.js'
 import { body, param, validationResult } from 'express-validator'
 import {
   NotFoundError,
@@ -45,7 +46,7 @@ export const validateIdParam = withValidationErrors([
   param('id').custom(async (value, { req }) => {
     const isValidId = mongoose.Types.ObjectId.isValid(value)
 
-    if (!isValidId) throw new BadRequestError('Invalid MongoDB ID')
+    if (!isValidId) throw new Error('Invalid MongoDB ID')
 
     const job = await Job.findById(value)
 
@@ -55,4 +56,28 @@ export const validateIdParam = withValidationErrors([
 
     return true
   }),
+])
+
+export const validateRegisterInput = withValidationErrors([
+  body('firstName').trim().notEmpty().withMessage('First name is required'),
+  body('lastName').trim().notEmpty().withMessage('Last name is required'),
+  body('email')
+    .trim()
+    .notEmpty()
+    .withMessage('Email is required')
+    .isEmail()
+    .withMessage('Invalid email format')
+    .custom(async (email) => {
+      const emailExists = await User.findOne({ email })
+
+      if (emailExists) throw new Error('Email already exists')
+
+      return true
+    }),
+  body('password')
+    .trim()
+    .notEmpty()
+    .withMessage('Password is required')
+    .isLength({ min: 8 })
+    .withMessage('Password must be at least 8 characters long'),
 ])
