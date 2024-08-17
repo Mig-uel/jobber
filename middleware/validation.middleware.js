@@ -8,7 +8,7 @@ import {
   UnauthenticatedError,
   UnauthorizedError,
 } from '../utils/errors.utils.js'
-import { STATUS, TYPE } from '../utils/constants.utils.js'
+import { ROLE, STATUS, TYPE } from '../utils/constants.utils.js'
 
 const withValidationErrors = (validateValues) => {
   return [
@@ -62,7 +62,7 @@ export const validateIdParam = withValidationErrors([
     const { id: userId, role } = req.user
 
     // BOOLEAN VALUES
-    const isAdmin = role === 'admin'
+    const isAdmin = role === ROLE.ADMIN
     const isOwner = userId === job.user.toString()
 
     // CHECK IF USER IS ADMIN OR OWNER OF THE JOB
