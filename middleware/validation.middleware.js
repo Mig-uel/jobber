@@ -32,6 +32,9 @@ const withValidationErrors = (validateValues) => {
   ]
 }
 
+/**
+ * @desc VALIDATES JOB INPUT
+ */
 export const validateJobInput = withValidationErrors([
   body('company').trim().notEmpty().withMessage('Company is required'),
   body('position').trim().notEmpty().withMessage('Position is required'),
@@ -42,6 +45,9 @@ export const validateJobInput = withValidationErrors([
   body('type').isIn(Object.values(TYPE)).withMessage('Invalid type value'),
 ])
 
+/**
+ * @desc VALIDATES ID PARAM
+ */
 export const validateIdParam = withValidationErrors([
   param('id').custom(async (id, { req }) => {
     const isValidId = mongoose.Types.ObjectId.isValid(id)
@@ -58,6 +64,9 @@ export const validateIdParam = withValidationErrors([
   }),
 ])
 
+/**
+ * @desc VALIDATES REGISTER INPUT
+ */
 export const validateRegisterInput = withValidationErrors([
   body('firstName').trim().notEmpty().withMessage('First name is required'),
   body('lastName').trim().notEmpty().withMessage('Last name is required'),
