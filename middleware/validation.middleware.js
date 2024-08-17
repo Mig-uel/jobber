@@ -1,4 +1,5 @@
-import { body, validationResult } from 'express-validator'
+import mongoose from 'mongoose'
+import { body, param, validationResult } from 'express-validator'
 import {
   NotFoundError,
   BadRequestError,
@@ -33,4 +34,10 @@ export const validateJobInput = withValidationErrors([
     .isIn(Object.values(STATUS))
     .withMessage('Invalid status value'),
   body('type').isIn(Object.values(TYPE)).withMessage('Invalid type value'),
+])
+
+export const validateIdParam = withValidationErrors([
+  param('id')
+    .custom((value, req) => mongoose.Types.ObjectId.isValid(value))
+    .withMessage('Invalid MongoDB ID'),
 ])
