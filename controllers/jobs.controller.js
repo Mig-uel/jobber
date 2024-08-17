@@ -43,7 +43,7 @@ export const getJob = async (req, res) => {
  */
 export const updateJob = async (req, res) => {
   const { id } = req.params
-  const { company, position, location } = req.body
+  // const { company, position, location } = req.body
 
   const job = await Job.findById(id)
   if (!job)
@@ -67,12 +67,9 @@ export const updateJob = async (req, res) => {
  * @access PRIVATE
  */
 export const createJob = async (req, res) => {
-  const { company, position, location } = req.body
+  // const { company, position, location } = req.body
 
-  if ((!company || !position, !location))
-    throw new Error('Please provide all fields')
-
-  const job = await Job.create({ company, position, location })
+  const job = await Job.create(req.body)
 
   return res.status(201).json(job)
 }
