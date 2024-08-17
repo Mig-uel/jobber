@@ -9,6 +9,7 @@ import { errorHandler } from './middleware/errorHandler.middleware.js'
 
 // routers
 import jobsRouter from './routes/jobs.route.js'
+import authRouter from './routes/auth.route.js'
 
 const app = express()
 const port = process.env.PORT || 5100
@@ -19,6 +20,7 @@ app.use(express.json())
 
 // routes
 app.use('/api/v1/jobs', jobsRouter)
+app.use('/api/v1/auth', authRouter)
 
 // not found route
 app.use('*', (req, res) => {
