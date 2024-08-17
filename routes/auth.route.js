@@ -1,7 +1,7 @@
 import { Router } from 'express'
 
 // controllers
-import { login, register } from '../controllers/auth.controller'
+import { login, register } from '../controllers/auth.controller.js'
 
 // router init
 const router = Router()
