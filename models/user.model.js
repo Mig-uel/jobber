@@ -42,6 +42,7 @@ UserSchema.methods.comparePassword = async function (enteredPassword) {
   return await bcrypt.compare(enteredPassword, this.password)
 }
 
+// PASSWORD PRE-SAVE MIDDLEWARE
 UserSchema.pre('save', async function (next) {
   // if the password field is not modified, don't do anything
   if (!this.isModified('password')) return next()
