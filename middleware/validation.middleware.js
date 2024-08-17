@@ -72,6 +72,7 @@ export const validateRegisterInput = withValidationErrors([
   body('lastName').trim().notEmpty().withMessage('Last name is required'),
   body('email')
     .trim()
+    .normalizeEmail({ all_lowercase: true })
     .notEmpty()
     .withMessage('Email is required')
     .isEmail()
