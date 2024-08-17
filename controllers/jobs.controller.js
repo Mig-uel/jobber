@@ -10,7 +10,7 @@ import {
  * @desc GET ALL JOBS
  * @method GET
  * @path /api/v1/jobs
- * @access PUBLIC
+ * @access PRIVATE
  */
 export const getJobs = async (req, res) => {
   const jobs = await Job.find({})
@@ -21,7 +21,7 @@ export const getJobs = async (req, res) => {
  * @desc GET SINGLE JOB
  * @method GET
  * @path /api/v1/jobs/:id
- * @access PUBLIC
+ * @access PRIVATE
  */
 export const getJob = async (req, res) => {
   const { job } = req
