@@ -1,5 +1,5 @@
 import mongoose, { Schema } from 'mongoose'
-import { ROLE } from '../utils/constants.utils'
+import { ROLE } from '../utils/constants.utils.js'
 
 const UserSchema = new Schema(
   {
