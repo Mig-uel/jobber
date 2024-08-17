@@ -8,12 +8,18 @@ import { connectDB } from './utils/db.utils.js'
 // MIDDLEWARE IMPORTS
 import morgan from 'morgan'
 import cookieParser from 'cookie-parser'
-import { authenticateUser, isAuth } from './middleware/auth.middleware.js'
+import {
+  authenticateUser,
+  isAdmin,
+  isAuth,
+} from './middleware/auth.middleware.js'
 import { errorHandler } from './middleware/errorHandler.middleware.js'
 
 // ROUTERS
 import jobsRouter from './routes/jobs.route.js'
 import authRouter from './routes/auth.route.js'
+import userRouter from './routes/user.route.js'
+import adminRouter from './routes/admin.route.js'
 
 const app = express()
 const port = process.env.PORT || 5100
@@ -26,6 +32,8 @@ app.use(express.json())
 // ROUTES
 app.use('/api/v1/jobs', isAuth, authenticateUser, jobsRouter)
 app.use('/api/v1/auth', authRouter)
+app.use('/api/v1/users', isAuth, authenticateUser, userRouter)
+app.use('/api/v1/admin', isAuth, authenticateUser, isAdmin, adminRouter)
 
 // NOT FOUND ROUTE
 app.use('*', (req, res) => {
