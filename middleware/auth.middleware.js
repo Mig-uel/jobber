@@ -26,3 +26,12 @@ export const authenticateUser = (req, res, next) => {
     throw new UnauthenticatedError('Authentication failed')
   }
 }
+
+export const isAdmin = (req, res, next) => {
+  const { role } = req.user
+
+  if (role !== ROLE.ADMIN)
+    throw new UnauthorizedError('Unauthorized to access this route')
+
+  return next()
+}
