@@ -57,9 +57,10 @@ export const updateJob = async (req, res) => {
  * @access PRIVATE
  */
 export const createJob = async (req, res) => {
-  // const { company, position, location } = req.body
+  const { id } = req
+  const { company, position, location, type } = req.body
 
-  const job = await Job.create(req.body)
+  const job = await Job.create({ company, position, type, location, user: id })
 
   return res.status(201).json(job)
 }
