@@ -27,7 +27,6 @@
     "frontend": "cd frontend && yarn dev",
     "server": "nodemon server.js",
     "setup": "yarn && cd frontend && yarn",
-    "watch": "node --watch server.js",
     "dev": "concurrently --kill-others-on-fail \"yarn server\" \"yarn frontend\""
   }
 }
