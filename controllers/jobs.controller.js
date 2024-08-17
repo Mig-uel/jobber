@@ -1,4 +1,5 @@
 import Job from '../models/job.model.js'
+import { ROLE } from '../utils/constants.utils.js'
 import {
   NotFoundError,
   BadRequestError,
@@ -13,8 +14,14 @@ import {
  * @access PRIVATE
  */
 export const getJobs = async (req, res) => {
-  const jobs = await Job.find({})
-  return res.status(200).json(jobs)
+  const { id, role } = req
+
+  let jobs
+
+  if (role === ROLE.ADMIN) jobs = await Job.find({})
+  else jobs = await Job.find({ user: id })
+
+  return res.status(200).json({ jobs })
 }
 
 /**
