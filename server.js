@@ -24,7 +24,7 @@ app.use('/api/v1/auth', authRouter)
 
 // not found route
 app.use('*', (req, res) => {
-  res.status(404).json({ message: 'Not found' })
+  res.status(404).json({ message: 'Resource not found' })
 }) // triggered if the resource does not exists
 
 // custom error handling
