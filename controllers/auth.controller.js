@@ -39,5 +39,14 @@ export const login = async (req, res) => {
   // GENERATE JWT
   const token = createToken({ id: user._id, role: user.role })
 
-  return res.status(200).json({ token })
+  // COOKIE EXPIRATION IN MILLISECONDS
+  const oneDay = 1000 * 60 * 60 * 24
+
+  res.cookie('token', token, {
+    expiresIn: new Date(Date.now() + oneDay),
+    httpOnly: true,
+    secure: process.env.NODE_ENV === 'prod',
+  })
+
+  return res.status(200).json({ message: 'Successfully logged in' })
 }
