@@ -1,7 +1,10 @@
 import { Router } from 'express'
 
 // validator
-import { validateJobInput } from '../middleware/validation.middleware.js'
+import {
+  validateIdParam,
+  validateJobInput,
+} from '../middleware/validation.middleware.js'
 
 // controllers
 import {
@@ -21,8 +24,8 @@ router.route('/').get(getJobs).post(validateJobInput, createJob)
 // /api/v1/jobs/:id - GET get single job | PATCH update job | DELETE remove job
 router
   .route('/:id')
-  .get(getJob)
-  .patch(validateJobInput, updateJob)
-  .delete(deleteJob)
+  .get(validateIdParam, getJob)
+  .patch(validateIdParam, validateJobInput, updateJob)
+  .delete(validateIdParam, deleteJob)
 
 export default router
