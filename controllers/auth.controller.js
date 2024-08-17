@@ -6,7 +6,13 @@ import User from '../models/user.model.js'
  * @path /api/v1/auth/register
  * @access PUBLIC
  */
-export const register = async (req, res) => {}
+export const register = async (req, res) => {
+  const { firstName, lastName, email, password } = req.body
+
+  const user = await User.create({ firstName, lastName, email, password })
+
+  return res.status(201).json(user)
+}
 
 /**
  * @desc LOGIN
@@ -14,4 +20,6 @@ export const register = async (req, res) => {}
  * @path /api/v1/auth/login
  * @access PUBLIC
  */
-export const login = async (req, res) => {}
+export const login = async (req, res) => {
+  return res.status(200).json({ message: 'hello' })
+}
