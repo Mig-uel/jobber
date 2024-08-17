@@ -20,9 +20,11 @@ const withValidationErrors = (validateValues) => {
       if (!errors.isEmpty()) {
         const errorsMessages = errors.array().map((error) => error.msg)
 
-        if (errorsMessages[0].startsWith('No job')) {
+        if (errorsMessages[0].startsWith('No job'))
           throw new NotFoundError(errorsMessages)
-        }
+
+        if (errorsMessages[0].startsWith('Unauthorized'))
+          throw new UnauthorizedError(errorsMessages)
 
         throw new BadRequestError(errorsMessages)
       }
@@ -51,12 +53,21 @@ export const validateJobInput = withValidationErrors([
 export const validateIdParam = withValidationErrors([
   param('id').custom(async (id, { req }) => {
     const isValidId = mongoose.Types.ObjectId.isValid(id)
-
     if (!isValidId) throw new Error('Invalid MongoDB ID')
 
     const job = await Job.findById(id)
-
     if (!job) throw new Error(`No job found with ID '${id}'`)
+
+    // GET USER ID AND ROLE FROM REQUEST
+    const { id: userId, role } = req.user
+
+    // BOOLEAN VALUES
+    const isAdmin = role === 'admin'
+    const isOwner = userId === job.user.toString()
+
+    // CHECK IF USER IS ADMIN OR OWNER OF THE JOB
+    if (!isAdmin && !isOwner)
+      throw new Error('Unauthorized to access this route')
 
     req.job = job
 
