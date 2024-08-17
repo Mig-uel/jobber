@@ -1,5 +1,4 @@
 import User from '../models/user.model.js'
-import bcrypt from 'bcryptjs'
 
 /**
  * @desc REGISTER
@@ -9,10 +8,6 @@ import bcrypt from 'bcryptjs'
  */
 export const register = async (req, res) => {
   const { firstName, lastName, email, password } = req.body
-
-  // hashing password moved to user model schema
-  // const salt = await bcrypt.genSalt()
-  // const hashedPassword = await bcrypt.hash(password, salt)
 
   await User.create({
     firstName,
