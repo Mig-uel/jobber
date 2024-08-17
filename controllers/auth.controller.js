@@ -1,4 +1,5 @@
 import User from '../models/user.model.js'
+import { createToken } from '../utils/jwt.utils.js'
 import { UnauthenticatedError } from '../utils/errors.utils.js'
 
 /**
@@ -35,5 +36,8 @@ export const login = async (req, res) => {
 
   if (!isValidUser) throw new UnauthenticatedError('Invalid email/password')
 
-  return res.status(200).json(user)
+  // GENERATE JWT
+  const token = createToken({ id: user._id, role: user.role })
+
+  return res.status(200).json({ token })
 }
