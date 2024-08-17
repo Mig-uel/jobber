@@ -1,4 +1,5 @@
 import mongoose from 'mongoose'
+import Job from '../models/job.model.js'
 import { body, param, validationResult } from 'express-validator'
 import {
   NotFoundError,
@@ -37,7 +38,17 @@ export const validateJobInput = withValidationErrors([
 ])
 
 export const validateIdParam = withValidationErrors([
-  param('id')
-    .custom((value, req) => mongoose.Types.ObjectId.isValid(value))
-    .withMessage('Invalid MongoDB ID'),
+  param('id').custom(async (value, { req }) => {
+    const isValidId = mongoose.Types.ObjectId.isValid(value)
+
+    if (!isValidId) throw new BadRequestError('Invalid MongoDB ID')
+
+    const job = await Job.findById(value)
+
+    if (!job) throw new NotFoundError(`No job found with ID '${value}'`)
+
+    req.job = job
+
+    return true
+  }),
 ])
