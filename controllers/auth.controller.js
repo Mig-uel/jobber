@@ -31,11 +31,9 @@ export const login = async (req, res) => {
 
   const user = await User.findOne({ email })
 
-  if (!user) throw new UnauthenticatedError('Invalid email/password')
+  const isValidUser = user && (await user.comparePassword(password))
 
-  const isPasswordCorrect = await user.isPasswordCorrect(password)
-  if (!isPasswordCorrect)
-    throw new UnauthenticatedError('Invalid email/password')
+  if (!isValidUser) throw new UnauthenticatedError('Invalid email/password')
 
   return res.status(200).json(user)
 }
