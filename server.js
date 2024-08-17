@@ -1,36 +1,39 @@
 import 'express-async-errors'
-import morgan from 'morgan'
 import { configDotenv } from 'dotenv'
 configDotenv({})
 import express from 'express'
 import mongoose from 'mongoose'
-import cookieParser from 'cookie-parser'
 import { connectDB } from './utils/db.utils.js'
+
+// MIDDLEWARE IMPORTS
+import morgan from 'morgan'
+import cookieParser from 'cookie-parser'
+import { isAuth } from './middleware/auth.middleware.js'
 import { errorHandler } from './middleware/errorHandler.middleware.js'
 
-// routers
+// ROUTERS
 import jobsRouter from './routes/jobs.route.js'
 import authRouter from './routes/auth.route.js'
 
 const app = express()
 const port = process.env.PORT || 5100
 
-// middleware
+// MIDDLEWARE
 process.env.NODE_ENV === 'dev' && app.use(morgan('dev')) // logs only in dev mode
-app.use(express.json())
 app.use(cookieParser())
+app.use(express.json())
 
-// routes
-app.use('/api/v1/jobs', jobsRouter)
+// ROUTES
+app.use('/api/v1/jobs', isAuth, jobsRouter)
 app.use('/api/v1/auth', authRouter)
 
-// not found route
+// NOT FOUND ROUTE
 app.use('*', (req, res) => {
   res.status(404).json({ message: 'Resource not found' })
-}) // triggered if the resource does not exists
+}) // TRIGGERED IF THE RESOURCE DOES NOT EXIST
 
-// custom error handling
-app.use(errorHandler) // triggered by existing controllers (valid routes) + for synchronous requests
+// CUSTOM ERROR HANDLING
+app.use(errorHandler) // TRIGGERED BY EXISTING CONTROLLERS (VALID RESOURCES) + FOR SYNCHRONOUS REQUESTS
 
 try {
   await connectDB()
