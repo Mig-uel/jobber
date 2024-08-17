@@ -14,7 +14,7 @@ import {
  * @access PRIVATE
  */
 export const getJobs = async (req, res) => {
-  const { id, role } = req
+  const { id, role } = req.user
 
   let jobs
 
@@ -64,7 +64,7 @@ export const updateJob = async (req, res) => {
  * @access PRIVATE
  */
 export const createJob = async (req, res) => {
-  const { id } = req
+  const { id } = req.user
   const { company, position, location, type } = req.body
 
   const job = await Job.create({ company, position, type, location, user: id })
