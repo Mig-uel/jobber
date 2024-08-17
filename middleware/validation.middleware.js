@@ -115,3 +115,40 @@ export const validateLogin = withValidationErrors([
     .withMessage('Invalid email format'),
   body('password').notEmpty().withMessage('Password is required'),
 ])
+
+/**
+ * @desc VALIDATE UPDATE USER INPUT
+ */
+export const validateUpdateUserInput = withValidationErrors([
+  body('firstName').notEmpty().withMessage('First name is required'),
+  body('lastName').notEmpty().withMessage('Last name is required'),
+  body('email')
+    .trim()
+    .notEmpty()
+    .withMessage('Email is required')
+    .normalizeEmail()
+    .custom(async (email, { req }) => {
+      const { id } = req.user
+      const user = await User.findOne({ email })
+
+      // CHECK IF CURRENT USER IS OWNER OF THE FOUND USERS EMAIL
+      if (user && user._id.toString() !== id)
+        throw new Error('Email already exists')
+
+      return true
+    }),
+  body('password')
+    .isLength({ min: 8 })
+    .withMessage('Password must be at least 8 characters long')
+    .optional({ values: 'falsy' }),
+  body('confirmPassword').custom((confirmPassword, { req }) => {
+    const { password } = req.body
+
+    if (!password) return true
+    if (password && password !== confirmPassword)
+      throw new Error('Password confirmation must match')
+
+    return true
+  }),
+  body('location').notEmpty().withMessage('Location is required'),
+])
