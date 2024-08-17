@@ -1,4 +1,5 @@
 import User from '../models/user.model.js'
+import bcrypt from 'bcryptjs'
 
 /**
  * @desc REGISTER
@@ -9,9 +10,17 @@ import User from '../models/user.model.js'
 export const register = async (req, res) => {
   const { firstName, lastName, email, password } = req.body
 
-  const user = await User.create({ firstName, lastName, email, password })
+  const salt = await bcrypt.genSalt()
+  const hashedPassword = await bcrypt.hash(password, salt)
 
-  return res.status(201).json(user)
+  const user = await User.create({
+    firstName,
+    lastName,
+    email,
+    password: hashedPassword,
+  })
+
+  return res.status(201).json({ message: 'User created' })
 }
 
 /**
