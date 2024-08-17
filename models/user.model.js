@@ -33,6 +33,15 @@ const UserSchema = new Schema(
   { timestamps: true }
 )
 
+/**
+ * @desc COMPARES THE ENTERED PASSWORD WITH THE FOUND USER PASSWORD
+ * @param {string} enteredPassword
+ * @returns {Promise<boolean>} - A PROMISE THAT RESOLVES TO TRUE IF THE ENTERED PASSWORD MATCHES THE FOUND USER PASSWORD, OTHERWISE RETURNS FALSE
+ */
+UserSchema.methods.comparePassword = async function (enteredPassword) {
+  return await bcrypt.compare(enteredPassword, this.password)
+}
+
 UserSchema.pre('save', async function (next) {
   // if the password field is not modified, don't do anything
   if (!this.isModified('password')) return next()
