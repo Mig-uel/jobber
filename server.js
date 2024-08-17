@@ -8,7 +8,7 @@ import { connectDB } from './utils/db.utils.js'
 // MIDDLEWARE IMPORTS
 import morgan from 'morgan'
 import cookieParser from 'cookie-parser'
-import { isAuth } from './middleware/auth.middleware.js'
+import { authenticateUser, isAuth } from './middleware/auth.middleware.js'
 import { errorHandler } from './middleware/errorHandler.middleware.js'
 
 // ROUTERS
@@ -24,7 +24,7 @@ app.use(cookieParser())
 app.use(express.json())
 
 // ROUTES
-app.use('/api/v1/jobs', isAuth, jobsRouter)
+app.use('/api/v1/jobs', isAuth, authenticateUser, jobsRouter)
 app.use('/api/v1/auth', authRouter)
 
 // NOT FOUND ROUTE
