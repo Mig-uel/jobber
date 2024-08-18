@@ -1,4 +1,4 @@
-import { Link } from 'react-router-dom'
+import { Link, Form, redirect, useNavigation } from 'react-router-dom'
 
 import { Wrapper } from '../../styled/RegisterAndLogin'
 import { Logo, FormRow } from '../../components'
@@ -6,7 +6,7 @@ import { Logo, FormRow } from '../../components'
 const Register = () => {
   return (
     <Wrapper>
-      <form className='form'>
+      <Form method='POST' className='form'>
         <Logo />
         <h4>Register</h4>
 
@@ -36,7 +36,7 @@ const Register = () => {
             Login
           </Link>
         </p>
-      </form>
+      </Form>
     </Wrapper>
   )
 }
