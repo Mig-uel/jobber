@@ -28,6 +28,11 @@ import {
   Register,
   Stats,
 } from './pages'
+
+// toastify
+import { ToastContainer } from 'react-toastify'
+import 'react-toastify/dist/ReactToastify.css'
+
 import './index.css'
 
 export const checkDefaultTheme = () => {
@@ -60,5 +65,6 @@ const router = createBrowserRouter(
 createRoot(document.getElementById('root')).render(
   <StrictMode>
     <RouterProvider router={router} />
+    <ToastContainer position='top-center' />
   </StrictMode>
 )
