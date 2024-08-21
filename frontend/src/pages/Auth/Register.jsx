@@ -1,4 +1,4 @@
-import { Link, Form, redirect, useNavigation } from 'react-router-dom'
+import { Link, Form, useNavigation } from 'react-router-dom'
 
 import { Wrapper } from '../../styled/RegisterAndLogin'
 import { Logo, FormRow } from '../../components'
@@ -6,7 +6,7 @@ import { Logo, FormRow } from '../../components'
 const Register = () => {
   return (
     <Wrapper>
-      <Form method='POST' className='form'>
+      <Form method='post' className='form'>
         <Logo />
         <h4>Register</h4>
 
