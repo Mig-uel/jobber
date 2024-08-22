@@ -23,9 +23,7 @@ const loginAction = async (data) => {
     // send post request and store request to use in toast message
     const user = await customFetch.post('/auth/login', loginData)
 
-    console.log(user)
-
-    toast.success('Welcome back, [user]!')
+    toast.success(`Welcome back, ${user.data.name}!`)
     return redirect('/dashboard')
   } catch (error) {
     toast.error(error?.response?.data?.message)
