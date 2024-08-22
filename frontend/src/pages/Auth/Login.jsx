@@ -1,20 +1,24 @@
-import { Link } from 'react-router-dom'
+import { Form, Link, useNavigation } from 'react-router-dom'
 
 import { Wrapper } from '../../styled/RegisterAndLogin'
 import { Logo, FormRow } from '../../components'
 
 const Login = () => {
+  const navigation = useNavigation()
+
+  const isSubmitting = navigation.state === 'submitting'
+
   return (
     <Wrapper>
-      <form className='form'>
+      <Form className='form' method='post'>
         <Logo />
         <h4>Login</h4>
 
-        <FormRow type='email' name='email' defaultValue='john@email.com' />
-        <FormRow type='password' name='password' defaultValue='123456' />
+        <FormRow type='email' name='email' />
+        <FormRow type='password' name='password' />
 
-        <button type='submit' className='btn btn-block'>
-          Login
+        <button type='submit' className='btn btn-block' disabled={isSubmitting}>
+          {isSubmitting ? 'Logging in...' : 'Login'}
         </button>
 
         <button type='button' className='btn btn-block'>
@@ -27,7 +31,7 @@ const Login = () => {
             Register
           </Link>
         </p>
-      </form>
+      </Form>
     </Wrapper>
   )
 }
