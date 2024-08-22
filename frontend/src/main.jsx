@@ -10,7 +10,7 @@ import {
 } from 'react-router-dom'
 
 // actions
-import { loginAction, registerAction } from './actions'
+import { addJobAction, loginAction, registerAction } from './actions'
 
 // loaders
 import { dashboardLoader } from './loaders'
@@ -57,7 +57,7 @@ const router = createBrowserRouter(
         element={<DashboardLayout />}
         loader={dashboardLoader}
       >
-        <Route index element={<AddJob />} />
+        <Route index element={<AddJob />} action={addJobAction} />
         <Route path='jobs' element={<AllJobs />} />
         <Route path='admin' element={<Admin />} />
         <Route path='stats' element={<Stats />} />
