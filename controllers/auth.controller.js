@@ -48,7 +48,9 @@ export const login = async (req, res) => {
     secure: process.env.NODE_ENV === 'prod',
   })
 
-  return res.status(200).json({ message: 'Successfully logged in' })
+  return res
+    .status(200)
+    .json({ message: 'Successfully logged in', name: user.firstName })
 }
 
 /**
