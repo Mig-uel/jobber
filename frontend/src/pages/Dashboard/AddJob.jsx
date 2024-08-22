@@ -1,10 +1,8 @@
 import { Form, useNavigation, useOutletContext } from 'react-router-dom'
-import { customFetch } from '../../utils/fetch.utils'
-import { STATUS } from '../../../../utils/constants.utils'
+import { STATUS, TYPE } from '../../../../utils/constants.utils'
 
 // ui
-import { toast } from 'react-toastify'
-import { FormRow } from '../../components'
+import { FormRow, FormRowSelect } from '../../components'
 import { Wrapper } from '../../styled/DashboardFormPage'
 
 const AddJob = () => {
@@ -28,21 +26,19 @@ const AddJob = () => {
             defaultValue={user?.location || ''}
           />
 
-          <div className='form-row'>
-            <label htmlFor='status' className='form-label'>
-              Job Status
-            </label>
-            <select
-              name='status'
-              id='status'
-              className='form-select'
-              defaultValue={STATUS.PENDING}
-            >
-              {Object.values(STATUS).map((status, index) => (
-                <option key={index}>{status}</option>
-              ))}
-            </select>
-          </div>
+          <FormRowSelect
+            labelText='Job Status'
+            name='status'
+            defaultValue={STATUS.PENDING}
+            list={Object.values(STATUS)}
+          />
+
+          <FormRowSelect
+            labelText='Job Type'
+            name='type'
+            defaultValue={TYPE.FULL_TIME}
+            list={Object.values(TYPE)}
+          />
 
           <button
             type='submit'
