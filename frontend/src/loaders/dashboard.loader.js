@@ -1,5 +1,6 @@
 import { redirect } from 'react-router-dom'
 import { customFetch } from '../utils/fetch.utils'
+import { toast } from 'react-toastify'
 
 const dashboardLoader = async () => {
   try {
@@ -7,6 +8,7 @@ const dashboardLoader = async () => {
 
     return data
   } catch (error) {
+    toast.error(error?.response?.data?.message)
     return redirect('/')
   }
 }
