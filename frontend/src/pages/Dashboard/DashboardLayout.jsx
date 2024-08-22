@@ -1,17 +1,18 @@
 import { createContext, useContext, useState, useRef } from 'react'
-import { Outlet, useLoaderData } from 'react-router-dom'
+import { Outlet, useLoaderData, useNavigate } from 'react-router-dom'
 import { DesktopSidebar, MobileSidebar, Navbar } from '../../components'
 import { checkDefaultTheme } from '../../main'
 import { Wrapper } from '../../styled/Dashboard'
+import { customFetch } from '../../utils/fetch.utils'
+import { toast } from 'react-toastify'
 
 // context
 const DashboardContext = createContext()
 
 const DashboardLayout = () => {
   const { user } = useLoaderData()
-  console.log(user)
+  const navigate = useNavigate()
 
-  // const user = { name: 'John' }
   const [showSidebar, setShowSidebar] = useState(false)
   const [isDarkTheme, setIsDarkTheme] = useState(checkDefaultTheme())
   const bodyRef = useRef(document.body.classList)
@@ -24,7 +25,12 @@ const DashboardLayout = () => {
   }
 
   const toggleSidebar = () => setShowSidebar((prev) => !prev)
-  const logoutUser = () => console.log('logged out')
+
+  const logoutUser = async () => {
+    navigate('/', { replace: true })
+    await customFetch('/auth/logout')
+    toast.success('Goodbye! 👋')
+  }
 
   // context value
   const value = {
