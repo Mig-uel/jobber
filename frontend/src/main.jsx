@@ -12,6 +12,9 @@ import {
 // actions
 import { loginAction, registerAction } from './actions'
 
+// loaders
+import { dashboardLoader } from './loaders'
+
 // components
 import App from './App.jsx'
 import {
@@ -19,8 +22,6 @@ import {
   AllJobs,
   AddJob,
   Admin,
-  DeleteJob,
-  EditJob,
   Error,
   Landing,
   Login,
@@ -51,7 +52,11 @@ const router = createBrowserRouter(
       <Route path='login' element={<Login />} action={loginAction} />
 
       {/* dashboard nested routes */}
-      <Route path='dashboard' element={<DashboardLayout />}>
+      <Route
+        path='dashboard'
+        element={<DashboardLayout />}
+        loader={dashboardLoader}
+      >
         <Route index element={<AddJob />} />
         <Route path='jobs' element={<AllJobs />} />
         <Route path='admin' element={<Admin />} />
