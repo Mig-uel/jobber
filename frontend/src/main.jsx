@@ -10,7 +10,12 @@ import {
 } from 'react-router-dom'
 
 // actions
-import { addJobAction, loginAction, registerAction } from './actions'
+import {
+  addJobAction,
+  editJobAction,
+  loginAction,
+  registerAction,
+} from './actions'
 
 // loaders
 import { dashboardLoader, editJobLoader, jobsLoader } from './loaders'
@@ -63,7 +68,12 @@ const router = createBrowserRouter(
         <Route path='admin' element={<Admin />} />
         <Route path='stats' element={<Stats />} />
         <Route path='profile' element={<Profile />} />
-        <Route path='edit/:id' element={<EditJob />} loader={editJobLoader} />
+        <Route
+          path='edit/:id'
+          element={<EditJob />}
+          loader={editJobLoader}
+          action={editJobAction}
+        />
       </Route>
     </Route>
   )
