@@ -10,7 +10,7 @@ import {
 } from 'react-router-dom'
 
 // actions
-import { registerAction } from './actions'
+import { loginAction, registerAction } from './actions'
 
 // components
 import App from './App.jsx'
@@ -48,7 +48,7 @@ const router = createBrowserRouter(
     <Route path='/' element={<App />} errorElement={<Error />}>
       <Route index element={<Landing />} />
       <Route path='register' element={<Register />} action={registerAction} />
-      <Route path='login' element={<Login />} />
+      <Route path='login' element={<Login />} action={loginAction} />
 
       {/* dashboard nested routes */}
       <Route path='dashboard' element={<DashboardLayout />}>
