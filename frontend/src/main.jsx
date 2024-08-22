@@ -13,7 +13,7 @@ import {
 import { addJobAction, loginAction, registerAction } from './actions'
 
 // loaders
-import { dashboardLoader } from './loaders'
+import { dashboardLoader, jobsLoader } from './loaders'
 
 // components
 import App from './App.jsx'
@@ -58,7 +58,7 @@ const router = createBrowserRouter(
         loader={dashboardLoader}
       >
         <Route index element={<AddJob />} action={addJobAction} />
-        <Route path='jobs' element={<AllJobs />} />
+        <Route path='jobs' element={<AllJobs />} loader={jobsLoader} />
         <Route path='admin' element={<Admin />} />
         <Route path='stats' element={<Stats />} />
         <Route path='profile' element={<Profile />} />
