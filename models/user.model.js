@@ -29,6 +29,8 @@ const UserSchema = new Schema(
       enum: Object.values(ROLE),
       default: ROLE.USER,
     },
+    avatar: String,
+    avatarPublicId: String,
   },
   { timestamps: true }
 )
