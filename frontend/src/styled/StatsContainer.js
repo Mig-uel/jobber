@@ -1,6 +1,6 @@
-import styled from 'styled-components';
+import styled from 'styled-components'
 
-const Wrapper = styled.section`
+export const Wrapper = styled.section`
   display: grid;
   row-gap: 2rem;
   @media (min-width: 768px) {
@@ -10,5 +10,4 @@ const Wrapper = styled.section`
   @media (min-width: 1120px) {
     grid-template-columns: 1fr 1fr 1fr;
   }
-`;
-export default Wrapper;
+`
