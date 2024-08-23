@@ -29,12 +29,9 @@ import { log } from 'console'
 const app = express()
 const port = process.env.PORT || 5100
 
-// __dirname
-const __dirname = dirname(fileURLToPath(import.meta.url))
-
 // MIDDLEWARE
 process.env.NODE_ENV === 'dev' && app.use(morgan('dev')) // logs only in dev mode
-app.use(express.static(path.resolve(__dirname, 'public'))) // static folder
+app.use(express.static(path.resolve(import.meta.dirname, 'public'))) // static folder
 app.use(cookieParser())
 app.use(express.json())
 
