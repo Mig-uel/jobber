@@ -18,7 +18,7 @@ import {
 } from './actions'
 
 // loaders
-import { dashboardLoader, jobsLoader } from './loaders'
+import { dashboardLoader, deleteJobLoader, jobsLoader } from './loaders'
 
 // components
 import App from './App.jsx'
@@ -34,6 +34,7 @@ import {
   Register,
   Stats,
   EditJob,
+  DeleteJob,
 } from './pages'
 
 // toastify
@@ -69,6 +70,11 @@ const router = createBrowserRouter(
         <Route path='stats' element={<Stats />} />
         <Route path='profile' element={<Profile />} />
         <Route path='edit/:id' element={<EditJob />} action={editJobAction} />
+        <Route
+          path='delete/:id'
+          element={<DeleteJob />}
+          loader={deleteJobLoader}
+        />
       </Route>
     </Route>
   )
