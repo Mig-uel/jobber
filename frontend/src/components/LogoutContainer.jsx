@@ -14,7 +14,12 @@ const LogoutContainer = () => {
         className='btn logout-btn'
         onClick={() => setShowLogout((prev) => !prev)}
       >
-        <FaUserCircle /> {user?.firstName} <FaCaretDown />
+        {user.avatar ? (
+          <img src={user.avatar} alt='avatar' className='img' />
+        ) : (
+          <FaUserCircle />
+        )}
+        {user?.firstName} <FaCaretDown />
       </button>
 
       <div className={`dropdown ${showLogout && 'show-dropdown'}`}>
