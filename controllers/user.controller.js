@@ -1,5 +1,7 @@
+import fs from 'fs/promises'
 import User from '../models/user.model.js'
 import Job from '../models/job.model.js'
+import { v2 as cloudinary } from 'cloudinary'
 
 /**
  * @desc GET USERS PROFILE
@@ -22,14 +24,32 @@ export const getUser = async (req, res) => {
  * @access PRIVATE
  */
 export const updateUser = async (req, res) => {
+  const { file } = req
   const { id } = req.user
   const { firstName, lastName, email, location, password } = req.body
 
-  let user
+  const user = await User.findById(id).select('-password')
+
+  if (file) {
+    // upload file to cloudinary
+    const response = await cloudinary.uploader.upload(file.path)
+
+    // remove image file from local disk storage
+    await fs.unlink(file.path)
+
+    // remove old cloudinary avatar from cloudinary
+    if (user.avatarPublicId) {
+      await cloudinary.uploader.destroy(user.avatarPublicId, {
+        invalidate: true,
+      })
+    }
+
+    // update user avatar & avatar public ID
+    user.avatar = response.secure_url
+    user.avatarPublicId = response.public_id
+  }
 
   if (!password) {
-    user = await User.findById(id).select('-password')
-
     user.firstName = firstName
     user.lastName = lastName
     user.email = email
