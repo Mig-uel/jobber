@@ -15,6 +15,7 @@ import {
   editJobAction,
   loginAction,
   registerAction,
+  updateUserAction,
 } from './actions'
 
 // loaders
@@ -73,7 +74,7 @@ const router = createBrowserRouter(
         <Route path='jobs' element={<AllJobs />} loader={jobsLoader} />
         <Route path='admin' element={<Admin />} loader={adminLoader} />
         <Route path='stats' element={<Stats />} />
-        <Route path='profile' element={<Profile />} />
+        <Route path='profile' element={<Profile />} action={updateUserAction} />
         <Route path='edit/:id' element={<EditJob />} action={editJobAction} />
         <Route
           path='delete/:id'
