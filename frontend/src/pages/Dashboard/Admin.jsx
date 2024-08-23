@@ -1,5 +1,31 @@
+import { useLoaderData } from 'react-router-dom'
+import { Wrapper } from '../../styled/StatsContainer'
+import { FaSuitcaseRolling, FaCalendarCheck } from 'react-icons/fa'
+import { StatItem } from '../../components'
+
 const Admin = () => {
-  return <h1>Admin Page</h1>
+  const { users, jobs } = useLoaderData()
+
+  console.log(users)
+
+  return (
+    <Wrapper>
+      <StatItem
+        title='Users'
+        count={users}
+        color='#e9b949'
+        bcg='#fcec7e'
+        icon={<FaSuitcaseRolling />}
+      />
+      <StatItem
+        title='Jobs'
+        count={jobs}
+        color='#647acb'
+        bcg='#e0e8f9'
+        icon={<FaCalendarCheck />}
+      />
+    </Wrapper>
+  )
 }
 
 export default Admin
