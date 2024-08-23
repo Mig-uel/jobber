@@ -1,5 +1,6 @@
 import { ROLE } from '../utils/constants.utils.js'
 import {
+  BadRequestError,
   UnauthenticatedError,
   UnauthorizedError,
 } from '../utils/errors.utils.js'
@@ -32,6 +33,15 @@ export const isAdmin = (req, res, next) => {
 
   if (role !== ROLE.ADMIN)
     throw new UnauthorizedError('Unauthorized to access this route')
+
+  return next()
+}
+
+export const isDemoUser = (req, res, next) => {
+  const { role } = req.user
+
+  if (role === 'demo')
+    throw new BadRequestError('Demo does not support this action')
 
   return next()
 }
