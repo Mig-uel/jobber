@@ -13,11 +13,11 @@ const deleteJobLoader = async ({ params }) => {
     await customFetch.delete(`/jobs/${id}`)
 
     toast.success('Deleted job posting! 🗑️')
-    return redirect('/dashboard/jobs')
   } catch (error) {
     toast.error(error?.response?.data?.message)
-    return redirect('/dashboard/jobs')
   }
+
+  return redirect('/dashboard/jobs')
 }
 
 export default deleteJobLoader
