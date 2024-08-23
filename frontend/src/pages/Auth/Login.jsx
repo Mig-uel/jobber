@@ -1,13 +1,9 @@
-import { Form, Link, useNavigation } from 'react-router-dom'
+import { Form, Link } from 'react-router-dom'
 
 import { Wrapper } from '../../styled/RegisterAndLogin'
-import { Logo, FormRow } from '../../components'
+import { Logo, FormRow, SubmitButton } from '../../components'
 
 const Login = () => {
-  const navigation = useNavigation()
-
-  const isSubmitting = navigation.state === 'submitting'
-
   return (
     <Wrapper>
       <Form className='form' method='post'>
@@ -17,9 +13,7 @@ const Login = () => {
         <FormRow type='email' name='email' />
         <FormRow type='password' name='password' />
 
-        <button type='submit' className='btn btn-block' disabled={isSubmitting}>
-          {isSubmitting ? 'Logging in...' : 'Login'}
-        </button>
+        <SubmitButton />
 
         <button type='button' className='btn btn-block'>
           Explore the App

@@ -4,14 +4,13 @@ import {
   useActionData,
   useLocation,
   useNavigate,
-  useNavigation,
   useParams,
 } from 'react-router-dom'
 import { STATUS, TYPE } from '../../../../utils/constants.utils'
 
 // ui
 import { Wrapper } from '../../styled/DashboardFormPage'
-import { FormRow, FormRowSelect } from '../../components'
+import { FormRow, FormRowSelect, SubmitButton } from '../../components'
 
 const EditJob = () => {
   let { id } = useParams()
@@ -19,9 +18,6 @@ const EditJob = () => {
   const error = useActionData()
 
   const navigate = useNavigate()
-  const navigation = useNavigation()
-
-  const isSubmitting = navigation.state === 'submitting'
 
   useEffect(() => {
     if (!state) {
@@ -55,13 +51,7 @@ const EditJob = () => {
             list={Object.values(TYPE)}
           />
 
-          <button
-            type='submit'
-            className='btn btn-block form-btn'
-            disabled={isSubmitting}
-          >
-            {isSubmitting ? 'Updating...' : 'Update'}
-          </button>
+          <SubmitButton formBtn />
         </div>
       </Form>
     </Wrapper>
