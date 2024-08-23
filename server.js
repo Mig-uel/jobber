@@ -5,6 +5,10 @@ import express from 'express'
 import mongoose from 'mongoose'
 import { connectDB } from './utils/db.utils.js'
 
+// __dirname ES6
+import path, { dirname } from 'path'
+import { fileURLToPath } from 'url'
+
 // MIDDLEWARE IMPORTS
 import morgan from 'morgan'
 import cookieParser from 'cookie-parser'
@@ -20,12 +24,17 @@ import jobsRouter from './routes/jobs.route.js'
 import authRouter from './routes/auth.route.js'
 import userRouter from './routes/user.route.js'
 import adminRouter from './routes/admin.route.js'
+import { log } from 'console'
 
 const app = express()
 const port = process.env.PORT || 5100
 
+// __dirname
+const __dirname = dirname(fileURLToPath(import.meta.url))
+
 // MIDDLEWARE
 process.env.NODE_ENV === 'dev' && app.use(morgan('dev')) // logs only in dev mode
+app.use(express.static('public')) // static folder
 app.use(cookieParser())
 app.use(express.json())
 
