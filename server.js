@@ -1,6 +1,7 @@
 import 'express-async-errors'
 import { configDotenv } from 'dotenv'
 configDotenv({})
+import path from 'path'
 import express from 'express'
 import mongoose from 'mongoose'
 import cloudinary from 'cloudinary'
