@@ -1,4 +1,4 @@
-import { Form, Link } from 'react-router-dom'
+import { Link } from 'react-router-dom'
 import day from 'dayjs'
 import advancedFormat from 'dayjs/plugin/advancedFormat'
 day.extend(advancedFormat)
@@ -37,11 +37,13 @@ const Job = ({ _id, position, company, location, type, status, createdAt }) => {
           >
             Edit
           </Link>
-          <Form>
-            <button type='submit' className='btn delete-btn'>
-              Delete
-            </button>
-          </Form>
+          <Link
+            to={`../delete/${_id}`}
+            type='submit'
+            className='btn delete-btn'
+          >
+            Delete
+          </Link>
         </footer>
       </div>
     </Wrapper>
