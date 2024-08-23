@@ -1,9 +1,9 @@
-import styled from 'styled-components';
+import styled from 'styled-components'
 
-const Wrapper = styled.article`
+export const Wrapper = styled.article`
   padding: 2rem;
   background: var(--background-secondary-color);
-  border-bottom: 5px solid ${(props) => props.color};
+  border-bottom: 5px solid ${(props) => props.props.color};
   border-radius: var(--border-radius);
 
   header {
@@ -15,7 +15,7 @@ const Wrapper = styled.article`
     display: block;
     font-weight: 700;
     font-size: 50px;
-    color: ${(props) => props.color};
+    color: ${(props) => props.props.color};
     line-height: 2;
   }
   .title {
@@ -29,16 +29,14 @@ const Wrapper = styled.article`
   .icon {
     width: 70px;
     height: 60px;
-    background: ${(props) => props.bcg};
+    background: ${(props) => props.props.bcg};
     border-radius: var(--border-radius);
     display: flex;
     align-items: center;
     justify-content: center;
     svg {
       font-size: 2rem;
-      color: ${(props) => props.color};
+      color: ${(props) => props.props.color};
     }
   }
-`;
-
-export default Wrapper;
+`
