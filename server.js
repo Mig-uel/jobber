@@ -3,11 +3,8 @@ import { configDotenv } from 'dotenv'
 configDotenv({})
 import express from 'express'
 import mongoose from 'mongoose'
+import cloudinary from 'cloudinary'
 import { connectDB } from './utils/db.utils.js'
-
-// __dirname ES6
-import path, { dirname } from 'path'
-import { fileURLToPath } from 'url'
 
 // MIDDLEWARE IMPORTS
 import morgan from 'morgan'
@@ -28,6 +25,13 @@ import { log } from 'console'
 
 const app = express()
 const port = process.env.PORT || 5100
+
+// CLOUDINARY
+cloudinary.config({
+  cloud_name: process.env.CLOUD_NAME,
+  api_key: process.env.CLOUD_API_KEY,
+  api_secret: process.env.CLOUD_API_SECRET,
+})
 
 // MIDDLEWARE
 process.env.NODE_ENV === 'dev' && app.use(morgan('dev')) // logs only in dev mode
