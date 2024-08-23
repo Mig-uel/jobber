@@ -3,6 +3,11 @@ import styled from 'styled-components'
 export const Wrapper = styled.section`
   margin-top: 4rem;
 
+  h4 {
+    margin-top: 1.5rem;
+    text-transform: none;
+  }
+
   h2 {
     text-transform: none;
   }
