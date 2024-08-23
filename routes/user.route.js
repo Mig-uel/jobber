@@ -1,4 +1,5 @@
 import { Router } from 'express'
+import { upload } from '../middleware/multer.middleware.js'
 
 // validation
 import { validateUpdateUserInput } from '../middleware/validation.middleware.js'
@@ -10,6 +11,9 @@ import { getUser, updateUser } from '../controllers/user.controller.js'
 const router = Router()
 
 // /api/v1/users - GET current user | patch update user
-router.route('/').get(getUser).patch(validateUpdateUserInput, updateUser)
+router
+  .route('/')
+  .get(getUser)
+  .patch(upload.single('avatar'), validateUpdateUserInput, updateUser)
 
 export default router
