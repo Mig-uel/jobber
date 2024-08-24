@@ -17,7 +17,7 @@ import {
  */
 export const getJobs = async (req, res) => {
   const {
-    query: { search },
+    query: { search, status, type },
   } = req
   const { id, role } = req.user
 
@@ -25,11 +25,18 @@ export const getJobs = async (req, res) => {
     user: id,
   }
 
+  // search query
   if (search)
     queryObject.$or = [
       { position: { $regex: search, $options: 'i' } },
       { company: { $regex: search, $options: 'i' } },
     ]
+
+  // status query
+  if (status && status !== 'all') queryObject.status = status
+
+  // type query
+  if (type && type !== 'all') queryObject.type = type
 
   const jobs = await Job.find(queryObject)
 
