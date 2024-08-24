@@ -92,5 +92,45 @@ export const deleteJob = async (req, res) => {
  * @access PRIVATE
  */
 export const getJobStats = async (req, res) => {
-  return res.status(200).json({ message: 'stats' })
+  const { id } = req.user
+
+  const jobCount = await Job.countDocuments({ user: id })
+
+  const pendingJobCount = await Job.countDocuments({
+    user: id,
+    status: 'pending',
+  })
+
+  const interviewJobCount = await Job.countDocuments({
+    user: id,
+    status: 'interview',
+  })
+
+  const declinedJobCount = await Job.countDocuments({
+    user: id,
+    status: 'declined',
+  })
+
+  const monthlyApplications = [
+    {
+      date: 'May 23',
+      count: 12,
+    },
+    {
+      date: 'Jun 23',
+      count: 12,
+    },
+    { date: 'Jul 23', count: 10 },
+  ]
+
+  return res.status(200).json({
+    jobs: jobCount,
+    stats: {
+      pending: pendingJobCount,
+      interview: interviewJobCount,
+      declined: declinedJobCount,
+    },
+
+    monthlyApplications,
+  })
 }
