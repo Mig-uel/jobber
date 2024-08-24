@@ -16,9 +16,22 @@ import {
  * @access PRIVATE
  */
 export const getJobs = async (req, res) => {
+  const {
+    query: { search },
+  } = req
   const { id, role } = req.user
 
-  const jobs = await Job.find({ user: id })
+  const queryObject = {
+    user: id,
+  }
+
+  if (search)
+    queryObject.$or = [
+      { position: { $regex: search, $options: 'i' } },
+      { company: { $regex: search, $options: 'i' } },
+    ]
+
+  const jobs = await Job.find(queryObject)
 
   return res.status(200).json({ jobs })
 }
