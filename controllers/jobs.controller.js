@@ -94,41 +94,34 @@ export const deleteJob = async (req, res) => {
 export const getJobStats = async (req, res) => {
   const { id } = req.user
 
-  const jobCount = await Job.countDocuments({ user: id })
-
-  const pendingJobCount = await Job.countDocuments({
-    user: id,
-    status: 'pending',
-  })
-
-  const interviewJobCount = await Job.countDocuments({
-    user: id,
-    status: 'interview',
-  })
-
-  const declinedJobCount = await Job.countDocuments({
-    user: id,
-    status: 'declined',
-  })
-
-  const monthlyApplications = [
+  // mongodb/mongoose aggregation pipeline for job statuses
+  let stats = await Job.aggregate([
+    // stage 1
     {
-      date: 'May 23',
-      count: 12,
+      $match: {
+        user: new mongoose.Types.ObjectId(id),
+      },
     },
+    // stage 2
     {
-      date: 'Jun 23',
-      count: 12,
+      $group: { _id: '$status', count: { $sum: 1 } },
     },
-    { date: 'Jul 23', count: 10 },
-  ]
+  ])
+
+  stats = stats.reduce((acc, curr) => {
+    const { _id: title, count } = curr
+
+    acc[title] = count
+    return acc
+  }, {})
+
 
   return res.status(200).json({
     jobs: jobCount,
     stats: {
-      pending: pendingJobCount,
-      interview: interviewJobCount,
-      declined: declinedJobCount,
+      pending: stats.pending || 0,
+      declined: stats.declined || 0,
+      interview: stats.interview || 0,
     },
 
     monthlyApplications,
