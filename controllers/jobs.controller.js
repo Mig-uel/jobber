@@ -17,7 +17,7 @@ import {
  */
 export const getJobs = async (req, res) => {
   const {
-    query: { search, status, type },
+    query: { search, status, type, sort },
   } = req
   const { id, role } = req.user
 
@@ -38,7 +38,16 @@ export const getJobs = async (req, res) => {
   // type query
   if (type && type !== 'all') queryObject.type = type
 
-  const jobs = await Job.find(queryObject)
+  // sort options
+  const sortOptions = {
+    newest: '-createdAt',
+    oldest: 'createdAt',
+    'a-z': 'position',
+    'z-a': 'position',
+  }
+  const sortKey = sortOptions[sort] || sortOptions.newest
+
+  const jobs = await Job.find(queryObject).sort(sortKey)
 
   return res.status(200).json({ jobs })
 }
