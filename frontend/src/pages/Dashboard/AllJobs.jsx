@@ -7,10 +7,13 @@ import { JobsContainer, SearchContainer } from '../../components'
 const AllJobsContext = createContext()
 
 const AllJobs = () => {
-  const { jobs } = useLoaderData()
+  const {
+    data: { jobs },
+    searcValues,
+  } = useLoaderData()
 
   return (
-    <AllJobsContext.Provider value={jobs}>
+    <AllJobsContext.Provider value={{ jobs, searcValues }}>
       <SearchContainer></SearchContainer>
       <JobsContainer></JobsContainer>
     </AllJobsContext.Provider>
