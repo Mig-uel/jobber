@@ -115,15 +115,51 @@ export const getJobStats = async (req, res) => {
     return acc
   }, {})
 
+  // mongodb/mongoose aggregation pipeline for monthly applications
+  let monthlyApplications = await Job.aggregate([
+    // stage 1
+    {
+      $match: { user: new mongoose.Types.ObjectId(id) },
+    },
+    // stage 2
+    {
+      $group: {
+        _id: { year: { $year: '$createdAt' }, month: { $month: '$createdAt' } },
+        count: { $sum: 1 },
+      },
+    },
+    // stage 3
+    {
+      $sort: { '_id.year': -1, '_id.month': -1 },
+    },
+    // stage 4
+    {
+      $limit: 6,
+    },
+  ])
+
+  monthlyApplications = monthlyApplications
+    .map((item) => {
+      const {
+        _id: { year, month },
+        count,
+      } = item
+
+      const date = day()
+        .month(month - 1)
+        .year(year)
+        .format('MMM YY')
+
+      return { date, count }
+    })
+    .reverse()
 
   return res.status(200).json({
-    jobs: jobCount,
     stats: {
       pending: stats.pending || 0,
       declined: stats.declined || 0,
       interview: stats.interview || 0,
     },
-
     monthlyApplications,
   })
 }
