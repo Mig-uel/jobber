@@ -18,10 +18,7 @@ import {
 export const getJobs = async (req, res) => {
   const { id, role } = req.user
 
-  let jobs
-
-  if (role === ROLE.ADMIN) jobs = await Job.find({})
-  else jobs = await Job.find({ user: id })
+  const jobs = await Job.find({ user: id })
 
   return res.status(200).json({ jobs })
 }
