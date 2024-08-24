@@ -1,3 +1,5 @@
+import day from 'dayjs'
+import mongoose from 'mongoose'
 import Job from '../models/job.model.js'
 import { ROLE } from '../utils/constants.utils.js'
 import {
@@ -84,4 +86,14 @@ export const deleteJob = async (req, res) => {
   await job.deleteOne()
 
   return res.status(200).json({ message: 'Job deleted' })
+}
+
+/**
+ * @desc GET JOB STATS
+ * @method GET
+ * @path /api/v1/jobs/stats
+ * @access PRIVATE
+ */
+export const getJobStats = async (req, res) => {
+  return res.status(200).json({ message: 'stats' })
 }
