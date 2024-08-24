@@ -5,7 +5,8 @@ import { FormRow, FormRowSelect, SubmitButton } from '.'
 import { Wrapper } from '../styled/DashboardFormPage'
 
 const SearchContainer = () => {
-  const data = useAllJobsContext()
+  const { searchValues } = useAllJobsContext()
+  const { search, status, type, sort } = searchValues
   const submit = useSubmit()
 
   return (
@@ -16,6 +17,7 @@ const SearchContainer = () => {
           <FormRow
             type='search'
             name='search'
+            defaultValue={search}
             onChange={(e) => submit(e.currentTarget.form)}
           />
 
@@ -23,7 +25,7 @@ const SearchContainer = () => {
             labelText='Job Status'
             name='status'
             list={['all', ...Object.values(STATUS)]}
-            defaultValue='all'
+            defaultValue={status}
             onChange={(e) => submit(e.currentTarget.form)}
           />
 
@@ -31,13 +33,13 @@ const SearchContainer = () => {
             labelText='Job Type'
             name='type'
             list={['all', ...Object.values(TYPE)]}
-            defaultValue='all'
+            defaultValue={type}
             onChange={(e) => submit(e.currentTarget.form)}
           />
 
           <FormRowSelect
             name='sort'
-            defaultValue='newest'
+            defaultValue={sort}
             list={[...Object.values(SORT_BY)]}
             onChange={(e) => submit(e.currentTarget.form)}
           />
