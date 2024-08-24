@@ -9,11 +9,11 @@ const AllJobsContext = createContext()
 const AllJobs = () => {
   const {
     data: { jobs },
-    searcValues,
+    searchValues,
   } = useLoaderData()
 
   return (
-    <AllJobsContext.Provider value={{ jobs, searcValues }}>
+    <AllJobsContext.Provider value={{ jobs, searchValues }}>
       <SearchContainer></SearchContainer>
       <JobsContainer></JobsContainer>
     </AllJobsContext.Provider>
