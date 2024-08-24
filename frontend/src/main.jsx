@@ -24,6 +24,7 @@ import {
   dashboardLoader,
   deleteJobLoader,
   jobsLoader,
+  statsLoader,
 } from './loaders'
 
 // components
@@ -73,7 +74,7 @@ const router = createBrowserRouter(
         <Route index element={<AddJob />} action={addJobAction} />
         <Route path='jobs' element={<AllJobs />} loader={jobsLoader} />
         <Route path='admin' element={<Admin />} loader={adminLoader} />
-        <Route path='stats' element={<Stats />} />
+        <Route path='stats' element={<Stats />} loader={statsLoader} />
         <Route path='profile' element={<Profile />} action={updateUserAction} />
         <Route path='edit/:id' element={<EditJob />} action={editJobAction} />
         <Route
