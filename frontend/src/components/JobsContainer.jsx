@@ -5,7 +5,7 @@ import { Wrapper } from '../styled/JobsContainer'
 import { Link } from 'react-router-dom'
 
 const JobsContainer = () => {
-  const jobs = useAllJobsContext()
+  const { jobs } = useAllJobsContext()
 
   if (!jobs.length)
     return (
