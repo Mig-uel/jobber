@@ -13,6 +13,7 @@ import {
   updateJob,
   createJob,
   deleteJob,
+  getJobStats,
 } from '../controllers/jobs.controller.js'
 import { isDemoUser } from '../middleware/auth.middleware.js'
 
@@ -21,6 +22,9 @@ const router = Router()
 
 // /api/v1/jobs - GET get all jobs | POST create job
 router.route('/').get(getJobs).post(isDemoUser, validateJobInput, createJob)
+
+// /api/v1/jobs/stats - GET get jobs stats
+router.get('/stats', getJobStats)
 
 // /api/v1/jobs/:id - GET get single job | PATCH update job | DELETE remove job
 router
