@@ -23,5 +23,5 @@ const ChartsContainer = ({ data }) => {
 export default ChartsContainer
 
 ChartsContainer.propTypes = {
-  data: PropType.object.isRequired,
+  data: PropType.array.isRequired,
 }
