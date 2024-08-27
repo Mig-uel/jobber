@@ -46,6 +46,11 @@ app.use('/api/v1/auth', authRouter)
 app.use('/api/v1/users', isAuth, authenticateUser, userRouter)
 app.use('/api/v1/admin', isAuth, authenticateUser, isAdmin, adminRouter)
 
+// index.html
+app.get('*', (req, res) => {
+  res.sendFile(path.resolve(import.meta.dirname, 'public', 'index.html'))
+})
+
 // NOT FOUND ROUTE
 app.use('*', (req, res) => {
   res.status(404).json({ message: 'Resource not found' })
