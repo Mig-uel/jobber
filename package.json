@@ -27,7 +27,7 @@
   },
   "scripts": {
     "setup": "yarn && cd frontend && yarn",
-    "build": "yarn && cd frontend && yarn && yarn build",
+    "build": "mkdir public && yarn && cd frontend && yarn && yarn build",
     "start": "node server.js",
     "frontend": "cd frontend && yarn dev",
     "server": "nodemon server.js",
