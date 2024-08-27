@@ -3,9 +3,10 @@ import { useAllJobsContext } from '../pages/Dashboard/AllJobs'
 import Job from './Job'
 import { Wrapper } from '../styled/JobsContainer'
 import { Link } from 'react-router-dom'
+import PageButtonContainer from './PageButtonContainer'
 
 const JobsContainer = () => {
-  const { jobs } = useAllJobsContext()
+  const { jobs, numOfPages, totalJobs } = useAllJobsContext()
 
   if (!jobs.length)
     return (
@@ -19,11 +20,15 @@ const JobsContainer = () => {
 
   return (
     <Wrapper>
+      <h5>
+        {totalJobs} job{jobs.length > 1 && 's'}
+      </h5>
       <div className='jobs'>
         {jobs.map((job) => (
           <Job key={job._id} {...job} />
         ))}
       </div>
+      {numOfPages > 1 && <PageButtonContainer />}
     </Wrapper>
   )
 }
