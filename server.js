@@ -1,6 +1,7 @@
 import 'express-async-errors'
 import { configDotenv } from 'dotenv'
 configDotenv({})
+import fs from 'fs/promises'
 import path from 'path'
 import express from 'express'
 import mongoose from 'mongoose'
@@ -35,6 +36,7 @@ cloudinary.config({
 })
 
 // MIDDLEWARE
+await fs.mkdir(path.resolve(import.meta.dirname, 'public', 'uploads')) // CREATE UPLOADS DIRECTORY
 process.env.NODE_ENV === 'dev' && app.use(morgan('dev')) // logs only in dev mode
 app.use(express.static(path.resolve(import.meta.dirname, 'public'))) // static folder
 app.use(cookieParser())
