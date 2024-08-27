@@ -6,8 +6,6 @@ import { StatItem } from '../../components'
 const Admin = () => {
   const { users, jobs } = useLoaderData()
 
-  console.log(users)
-
   return (
     <Wrapper>
       <StatItem
