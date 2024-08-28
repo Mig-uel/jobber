@@ -1,10 +1,8 @@
+import path from 'path'
 import multer from 'multer'
+import DataParser from 'datauri/parser.js'
 
-const storage = multer.diskStorage({
-  destination: (req, file, callback) => {
-    callback(null, 'public/uploads')
-  },
-
+const storage = multer.memoryStorage({
   filename: (req, file, callback) => {
     const fileName = `${Date.now()}.${file.originalname.split('.')[1]}`
 
@@ -24,3 +22,12 @@ const fileFilter = (req, file, callback) => {
 }
 
 export const upload = multer({ storage, fileFilter })
+
+// BUFFER HELPER
+const parser = new DataParser()
+
+export const formatImage = (file) => {
+  const fileExtension = path.extname(file.originalname).toString()
+
+  return parser.format(fileExtension, file.buffer).content
+}
