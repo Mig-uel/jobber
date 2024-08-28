@@ -1,6 +1,6 @@
-import fs from 'fs/promises'
 import User from '../models/user.model.js'
 import Job from '../models/job.model.js'
+import { formatImage } from '../middleware/multer.middleware.js'
 import { v2 as cloudinary } from 'cloudinary'
 
 /**
@@ -31,11 +31,10 @@ export const updateUser = async (req, res) => {
   const user = await User.findById(id).select('-password')
 
   if (file) {
-    // upload file to cloudinary
-    const response = await cloudinary.uploader.upload(file.path)
+    const bufferFile = formatImage(file)
 
-    // remove image file from local disk storage
-    await fs.unlink(file.path)
+    // upload file to cloudinary
+    const response = await cloudinary.uploader.upload(bufferFile)
 
     // remove old cloudinary avatar from cloudinary
     if (user.avatarPublicId) {
