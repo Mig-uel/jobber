@@ -36,11 +36,6 @@ cloudinary.config({
 })
 
 // MIDDLEWARE
-try {
-  await fs.mkdir(path.resolve(import.meta.dirname, 'public', 'uploads')) // CREATE UPLOADS DIRECTORY
-} catch (error) {
-  console.log(error)
-}
 process.env.NODE_ENV === 'dev' && app.use(morgan('dev')) // logs only in dev mode
 app.use(express.static(path.resolve(import.meta.dirname, './frontend', 'dist'))) // static folder
 app.use(cookieParser())
