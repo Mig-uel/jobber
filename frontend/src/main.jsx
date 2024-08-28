@@ -22,10 +22,11 @@ import {
 import {
   adminLoader,
   dashboardLoader,
-  deleteJobLoader,
   jobsLoader,
   statsLoader,
 } from './loaders'
+
+import deleteJobLoader from './loaders/deletejob.loader'
 
 // components
 import App from './App.jsx'

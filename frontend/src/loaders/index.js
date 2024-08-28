@@ -1,6 +1,5 @@
 export { default as dashboardLoader } from './dashboard.loader'
 export { default as jobsLoader } from './jobs.loader'
 export { default as editJobLoader } from './editjob.loader'
-export { default as deleteJobLoader } from './deleteJob.loader.js'
 export { default as adminLoader } from './admin.loader'
 export { default as statsLoader } from './stats.loader'
