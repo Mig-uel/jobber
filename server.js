@@ -42,7 +42,7 @@ try {
   console.log(error)
 }
 process.env.NODE_ENV === 'dev' && app.use(morgan('dev')) // logs only in dev mode
-app.use(express.static(path.resolve(import.meta.dirname, 'public'))) // static folder
+app.use(express.static(path.resolve(import.meta.dirname, 'frontend', 'dist'))) // static folder
 app.use(cookieParser())
 app.use(express.json())
 
@@ -54,7 +54,9 @@ app.use('/api/v1/admin', isAuth, authenticateUser, isAdmin, adminRouter)
 
 // index.html
 app.get('*', (req, res) => {
-  res.sendFile(path.resolve(import.meta.dirname, 'public', 'index.html'))
+  res.sendFile(
+    path.resolve(import.meta.dirname, 'frontend', 'dist', 'index.html')
+  )
 })
 
 // NOT FOUND ROUTE
