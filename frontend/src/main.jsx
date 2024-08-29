@@ -90,8 +90,13 @@ const router = createBrowserRouter(
         loader={() => dashboardLoader(queryClient)}
         errorElement={<ErrorElement />}
       >
-        <Route index element={<AddJob />} action={addJobAction} />
-        <Route path='jobs' element={<AllJobs />} loader={jobsLoader} />
+        <Route index element={<AddJob />} action={addJobAction(queryClient)} />
+        <Route
+          path='jobs'
+          element={<AllJobs />}
+          loader={jobsLoader(queryClient)}
+          errorElement={<ErrorElement />}
+        />
         <Route path='admin' element={<Admin />} loader={adminLoader} />
         <Route
           path='stats'
@@ -104,11 +109,15 @@ const router = createBrowserRouter(
           element={<Profile />}
           action={updateUserAction(queryClient)}
         />
-        <Route path='edit/:id' element={<EditJob />} action={editJobAction} />
+        <Route
+          path='edit/:id'
+          element={<EditJob />}
+          action={editJobAction(queryClient)}
+        />
         <Route
           path='delete/:id'
           element={<DeleteJob />}
-          loader={deleteJobLoader}
+          loader={deleteJobLoader(queryClient)}
         />
       </Route>
     </Route>
