@@ -91,7 +91,7 @@ const router = createBrowserRouter(
         <Route
           path='stats'
           element={<Stats />}
-          loader={statsLoader}
+          loader={() => statsLoader(queryClient)}
           errorElement={<ErrorElement />}
         />
         <Route path='profile' element={<Profile />} action={updateUserAction} />
