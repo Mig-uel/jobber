@@ -84,6 +84,7 @@ const router = createBrowserRouter(
         path='dashboard'
         element={<DashboardLayout />}
         loader={dashboardLoader}
+        errorElement={<ErrorElement />}
       >
         <Route index element={<AddJob />} action={addJobAction} />
         <Route path='jobs' element={<AllJobs />} loader={jobsLoader} />
