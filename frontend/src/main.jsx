@@ -82,8 +82,8 @@ const router = createBrowserRouter(
       {/* dashboard nested routes */}
       <Route
         path='dashboard'
-        element={<DashboardLayout />}
-        loader={dashboardLoader}
+        element={<DashboardLayout queryClient={queryClient} />}
+        loader={() => dashboardLoader(queryClient)}
         errorElement={<ErrorElement />}
       >
         <Route index element={<AddJob />} action={addJobAction} />
