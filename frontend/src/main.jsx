@@ -54,6 +54,7 @@ import { ToastContainer } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
 
 import './index.css'
+import ErrorElement from './components/ErrorElement'
 
 export const checkDefaultTheme = () => {
   const isDarkTheme = localStorage.getItem('darkTheme') === 'true'
@@ -87,7 +88,12 @@ const router = createBrowserRouter(
         <Route index element={<AddJob />} action={addJobAction} />
         <Route path='jobs' element={<AllJobs />} loader={jobsLoader} />
         <Route path='admin' element={<Admin />} loader={adminLoader} />
-        <Route path='stats' element={<Stats />} loader={statsLoader} />
+        <Route
+          path='stats'
+          element={<Stats />}
+          loader={statsLoader}
+          errorElement={<ErrorElement />}
+        />
         <Route path='profile' element={<Profile />} action={updateUserAction} />
         <Route path='edit/:id' element={<EditJob />} action={editJobAction} />
         <Route
