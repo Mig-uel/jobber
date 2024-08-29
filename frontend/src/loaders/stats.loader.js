@@ -1,7 +1,16 @@
 import { customFetch } from '../utils/fetch.utils'
 
-const statsLoader = async () => {
-  const { data } = await customFetch.get('/jobs/stats')
+export const statsQuery = {
+  queryKey: ['stats'],
+  queryFn: async () => {
+    const { data } = await customFetch.get('/jobs/stats')
+
+    return data
+  },
+}
+
+const statsLoader = async (queryClient) => {
+  const data = await queryClient.ensureQueryData(statsQuery)
 
   return data
 }
