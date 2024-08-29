@@ -15,12 +15,16 @@ import { checkDefaultTheme } from '../../main'
 import { Wrapper } from '../../styled/Dashboard'
 import { customFetch } from '../../utils/fetch.utils'
 import { toast } from 'react-toastify'
+import { useQuery } from '@tanstack/react-query'
+import { userQuery } from '../../loaders/dashboard.loader'
 
 // context
 const DashboardContext = createContext()
 
-const DashboardLayout = () => {
-  const { user } = useLoaderData()
+const DashboardLayout = ({ queryClient }) => {
+  const {
+    data: { user },
+  } = useQuery(userQuery)
   const navigate = useNavigate()
 
   // loading
