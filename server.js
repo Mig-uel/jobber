@@ -18,6 +18,10 @@ import {
 } from './middleware/auth.middleware.js'
 import { errorHandler } from './middleware/errorHandler.middleware.js'
 
+// SECURITY MIDDLEWARE
+import helmet from 'helmet'
+import ExpressMongoSanitize from 'express-mongo-sanitize'
+
 // ROUTERS
 import jobsRouter from './routes/jobs.route.js'
 import authRouter from './routes/auth.route.js'
@@ -40,6 +44,8 @@ process.env.NODE_ENV === 'dev' && app.use(morgan('dev')) // logs only in dev mod
 app.use(express.static(path.resolve(import.meta.dirname, './frontend', 'dist'))) // static folder
 app.use(cookieParser())
 app.use(express.json())
+app.use(helmet())
+app.use(ExpressMongoSanitize())
 
 // ROUTES
 app.use('/api/v1/jobs', isAuth, authenticateUser, jobsRouter)
