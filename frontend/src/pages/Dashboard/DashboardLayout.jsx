@@ -1,10 +1,5 @@
 import { createContext, useContext, useState, useRef } from 'react'
-import {
-  Outlet,
-  useLoaderData,
-  useNavigate,
-  useNavigation,
-} from 'react-router-dom'
+import { Outlet, useNavigate, useNavigation } from 'react-router-dom'
 import {
   DesktopSidebar,
   Loading,
@@ -17,6 +12,7 @@ import { customFetch } from '../../utils/fetch.utils'
 import { toast } from 'react-toastify'
 import { useQuery } from '@tanstack/react-query'
 import { userQuery } from '../../loaders/dashboard.loader'
+import PropTypes from 'prop-types'
 
 // context
 const DashboardContext = createContext()
@@ -47,6 +43,10 @@ const DashboardLayout = ({ queryClient }) => {
   const logoutUser = async () => {
     navigate('/', { replace: true })
     await customFetch('/auth/logout')
+
+    // invalidate query
+    queryClient.invalidateQueries()
+
     toast.success('Goodbye! 👋')
   }
 
@@ -82,3 +82,7 @@ const DashboardLayout = ({ queryClient }) => {
 export const useDashboardContext = () => useContext(DashboardContext)
 
 export default DashboardLayout
+
+DashboardLayout.propTypes = {
+  queryClient: PropTypes.any,
+}
