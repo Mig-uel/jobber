@@ -13,7 +13,7 @@ import { redirect } from 'react-router-dom'
 import { customFetch } from '../utils/fetch.utils'
 import { toast } from 'react-toastify'
 
-const addJobAction = async (data) => {
+const addJobAction = (queryClient) => async (data) => {
   try {
     const { request } = data
 
@@ -24,6 +24,9 @@ const addJobAction = async (data) => {
     const jobData = Object.fromEntries(formData)
 
     await customFetch.post('/jobs', jobData)
+
+    // invalidate query cache
+    queryClient.invalidateQueries(['jobs'])
 
     toast.success('Job added! 🙌')
     return redirect('jobs')

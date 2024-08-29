@@ -1,20 +1,36 @@
 import { customFetch } from '../utils/fetch.utils'
-import { toast } from 'react-toastify'
 
-const jobsLoader = async ({ request }) => {
-  try {
+export const allJobsQuery = (params) => {
+  const { search, status, type, sort, page } = params
+
+  return {
+    queryKey: [
+      'jobs',
+      search ?? '',
+      status ?? 'all',
+      type ?? 'all',
+      sort ?? 'newest',
+      page ?? 1,
+    ],
+    queryFn: async () => {
+      const { data } = await customFetch.get('/jobs', { params })
+
+      return data
+    },
+  }
+}
+
+const jobsLoader =
+  (queryClient) =>
+  async ({ request }) => {
     const { url } = request
 
     const searchParams = new URL(url).searchParams.entries()
     const params = Object.fromEntries([...searchParams])
 
-    const { data } = await customFetch.get('/jobs', { params })
+    await queryClient.ensureQueryData(allJobsQuery(params))
 
-    return { data, searchValues: { ...params } }
-  } catch (error) {
-    toast.error(error?.response?.data?.message)
-    return error
+    return { searchValues: { ...params } }
   }
-}
 
 export default jobsLoader

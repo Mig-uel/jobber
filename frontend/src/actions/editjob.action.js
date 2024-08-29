@@ -13,7 +13,7 @@ import { redirect } from 'react-router-dom'
 import { customFetch } from '../utils/fetch.utils'
 import { toast } from 'react-toastify'
 
-const editJobAction = async (data) => {
+const editJobAction = (queryClient) => async (data) => {
   try {
     const {
       params: { id },
@@ -25,6 +25,9 @@ const editJobAction = async (data) => {
     const editData = Object.fromEntries(formData)
 
     await customFetch.patch(`/jobs/${id}`, editData)
+
+    // invalidate query cache
+    queryClient.invalidateQueries(['jobs'])
 
     toast.success('Updated job posting! 🎉')
     return redirect('/dashboard/jobs')
