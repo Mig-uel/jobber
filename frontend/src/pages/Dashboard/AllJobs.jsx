@@ -3,14 +3,17 @@ import { useLoaderData } from 'react-router-dom'
 
 // ui
 import { JobsContainer, SearchContainer } from '../../components'
+import { useQuery } from '@tanstack/react-query'
+import { allJobsQuery } from '../../loaders/jobs.loader'
 
 const AllJobsContext = createContext()
 
 const AllJobs = () => {
+  const { searchValues } = useLoaderData()
+  
   const {
     data: { jobs, currentPage, numOfPages, totalJobs },
-    searchValues,
-  } = useLoaderData()
+  } = useQuery(allJobsQuery(searchValues))
 
   return (
     <AllJobsContext.Provider
