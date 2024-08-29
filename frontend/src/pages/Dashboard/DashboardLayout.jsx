@@ -1,4 +1,4 @@
-import { createContext, useContext, useState, useRef } from 'react'
+import { createContext, useContext, useState, useRef, useEffect } from 'react'
 import { Outlet, useNavigate, useNavigation } from 'react-router-dom'
 import {
   DesktopSidebar,
@@ -27,6 +27,7 @@ const DashboardLayout = ({ queryClient }) => {
   const navigation = useNavigation()
   const isPageLoading = navigation.state === 'loading'
 
+  const [isAuthError, setIsAuthError] = useState(false)
   const [showSidebar, setShowSidebar] = useState(false)
   const [isDarkTheme, setIsDarkTheme] = useState(checkDefaultTheme())
   const bodyRef = useRef(document.body.classList)
@@ -50,6 +51,15 @@ const DashboardLayout = ({ queryClient }) => {
     toast.success('Goodbye! 👋')
   }
 
+  customFetch.interceptors.response.use(
+    (response) => response,
+    (error) => {
+      if (error?.response?.status === 401) setIsAuthError(true)
+
+      return Promise.reject(error)
+    }
+  )
+
   // context value
   const value = {
     user,
@@ -59,6 +69,12 @@ const DashboardLayout = ({ queryClient }) => {
     toggleSidebar,
     logoutUser,
   }
+
+  useEffect(() => {
+    if (!isAuthError) return
+
+    logoutUser()
+  }, [isAuthError, logoutUser])
 
   return (
     <DashboardContext.Provider value={value}>
