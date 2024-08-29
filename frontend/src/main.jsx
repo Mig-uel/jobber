@@ -77,7 +77,11 @@ const router = createBrowserRouter(
     <Route path='/' element={<App />} errorElement={<Error />}>
       <Route index element={<Landing />} />
       <Route path='register' element={<Register />} action={registerAction} />
-      <Route path='login' element={<Login />} action={loginAction} />
+      <Route
+        path='login'
+        element={<Login />}
+        action={loginAction(queryClient)}
+      />
 
       {/* dashboard nested routes */}
       <Route
@@ -95,7 +99,11 @@ const router = createBrowserRouter(
           loader={() => statsLoader(queryClient)}
           errorElement={<ErrorElement />}
         />
-        <Route path='profile' element={<Profile />} action={updateUserAction} />
+        <Route
+          path='profile'
+          element={<Profile />}
+          action={updateUserAction(queryClient)}
+        />
         <Route path='edit/:id' element={<EditJob />} action={editJobAction} />
         <Route
           path='delete/:id'
