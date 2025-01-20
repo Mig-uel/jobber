@@ -6,7 +6,7 @@ type NavLink = {
   icon: React.ReactNode
 }
 
-export const NavLinks: NavLink[] = [
+export const navLinks: NavLink[] = [
   {
     href: '/add-job',
     icon: <Layers />,
@@ -15,7 +15,7 @@ export const NavLinks: NavLink[] = [
   {
     href: '/jobs',
     icon: <AppWindow />,
-    label: 'Jobs',
+    label: 'All Jobs',
   },
   {
     href: '/stats',
