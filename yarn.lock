@@ -34,7 +34,7 @@
     "@clerk/types" "4.26.0"
     tslib "2.4.1"
 
-"@clerk/nextjs@5.x":
+"@clerk/nextjs@^5.7.5":
   version "5.7.5"
   resolved "https://registry.yarnpkg.com/@clerk/nextjs/-/nextjs-5.7.5.tgz#2e65426217c827723b225489dedc233be0a6db96"
   integrity sha512-hfH4IiKcDT9LlqSOlNHZoYfX6iF4lBqPXf/KwnILCX/0+MVYaotb30FwWXkcHI2jZgcvumlQTOq8Gv5KugnihA==
