@@ -12,7 +12,9 @@ export default function Sidebar() {
 
   return (
     <aside className='py-4 px-8 bg-muted h-full'>
-      <Image src={Logo} alt='logo' className='mx-auto' />
+      <Link href='/'>
+        <Image src={Logo} alt='logo' className='mx-auto' />
+      </Link>
 
       <div className='flex flex-col mt-20 gap-y-4'>
         {navLinks.map((link) => (
