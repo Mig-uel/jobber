@@ -1,5 +1,4 @@
 'use client'
-
 import { getAllJobs } from '@/utils/actions'
 import { useQuery } from '@tanstack/react-query'
 import { useSearchParams } from 'next/navigation'
