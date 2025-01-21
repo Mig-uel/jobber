@@ -1,3 +1,9 @@
+import { AddJobForm } from '@/components/index'
+
 export default function Page() {
-  return <div>Page</div>
+  return (
+    <>
+      <AddJobForm />
+    </>
+  )
 }
