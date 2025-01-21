@@ -3,7 +3,7 @@ import * as zod from 'zod'
 export type JobType = {
   id: string
   createdAt: Date
-  updatedAt: string
+  updatedAt: Date
   clerkId: string
   position: string
   company: string
