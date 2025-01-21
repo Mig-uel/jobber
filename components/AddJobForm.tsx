@@ -37,7 +37,10 @@ export default function AddJobForm() {
 
     onSuccess(data) {
       if (!data) {
-        toast({ description: 'There was an error ⛔' })
+        toast({
+          description: 'There was an error adding the job ⛔',
+          variant: 'destructive',
+        })
         return
       }
 
