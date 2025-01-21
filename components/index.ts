@@ -1,5 +1,6 @@
 export { default as AddJobForm } from './AddJobForm'
 export { default as DeleteJobButton } from './DeleteJobButton'
+export { default as EditJobForm } from './EditJobForm'
 export * from './FormComponents'
 export { default as JobCard } from './JobCard'
 export { default as JobInfo } from './JobInfo'
