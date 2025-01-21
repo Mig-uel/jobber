@@ -11,6 +11,10 @@ import { useForm } from 'react-hook-form'
 import { CustomFormField, CustomFormSelect } from './FormComponents'
 import { Button } from './ui/button'
 import { Form } from './ui/form'
+import { useMutation, useQueryClient } from '@tanstack/react-query'
+import { useToast } from '@/hooks/use-toast'
+import { useRouter } from 'next/navigation'
+import { addJob } from '@/utils/actions'
 
 export default function AddJobForm() {
   const form = useForm<CreateAndEditJobType>({
@@ -24,9 +28,29 @@ export default function AddJobForm() {
     },
   })
 
-  function handleSubmit(values: CreateAndEditJobType) {
-    console.log(values)
-  }
+  const queryClient = useQueryClient()
+  const { toast } = useToast()
+  const router = useRouter()
+
+  const { isPending, mutate } = useMutation({
+    mutationFn: async (values: CreateAndEditJobType) => await addJob(values),
+
+    onSuccess(data) {
+      if (!data) {
+        toast({ description: 'There was an error ⛔' })
+        return
+      }
+
+      toast({ description: 'Job successfully added 🎉' })
+      queryClient.invalidateQueries({
+        queryKey: ['jobs', 'stats', 'charts'],
+      })
+
+      return router.push('/jobs')
+    },
+  })
+
+  const handleSubmit = (values: CreateAndEditJobType) => mutate(values)
 
   return (
     <Form {...form}>
@@ -64,8 +88,12 @@ export default function AddJobForm() {
             control={form.control}
           />
 
-          <Button type='submit' className='self-end capitalize'>
-            Add Job
+          <Button
+            type='submit'
+            className='self-end capitalize'
+            disabled={isPending}
+          >
+            {isPending ? 'Loading' : 'Add Job'}
           </Button>
         </div>
       </form>
