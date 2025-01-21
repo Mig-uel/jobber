@@ -1,17 +1,16 @@
 'use client'
 
-import { zodResolver } from '@hookform/resolvers/zod'
-import { useForm } from 'react-hook-form'
-import * as zod from 'zod'
-import { Button } from './ui/button'
-import { Form } from './ui/form'
 import {
   createAndEditJobSchema,
   CreateAndEditJobType,
   JobMode,
   JobStatus,
 } from '@/utils/types'
+import { zodResolver } from '@hookform/resolvers/zod'
+import { useForm } from 'react-hook-form'
 import { CustomFormField, CustomFormSelect } from './FormComponents'
+import { Button } from './ui/button'
+import { Form } from './ui/form'
 
 export default function AddJobForm() {
   const form = useForm<CreateAndEditJobType>({
