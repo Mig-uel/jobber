@@ -1,3 +1,14 @@
-export default function JobInfo() {
-  return <div>JobInfo</div>
+export default function JobInfo({
+  icon,
+  text,
+}: {
+  icon: React.ReactNode
+  text: string
+}) {
+  return (
+    <div className='flex gap-x-2 items-center'>
+      {icon}
+      {text}
+    </div>
+  )
 }
