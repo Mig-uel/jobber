@@ -46,7 +46,13 @@ export default function AddJobForm() {
 
       toast({ description: 'Job successfully added 🎉' })
       queryClient.invalidateQueries({
-        queryKey: ['jobs', 'stats', 'charts'],
+        queryKey: ['jobs'],
+      })
+      queryClient.invalidateQueries({
+        queryKey: ['stats'],
+      })
+      queryClient.invalidateQueries({
+        queryKey: ['charts'],
       })
 
       return router.push('/jobs')
