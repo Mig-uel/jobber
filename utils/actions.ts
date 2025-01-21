@@ -167,6 +167,8 @@ export async function updateJob(
   const clerkId = authenticateOrRedirect()
 
   try {
+    createAndEditJobSchema.parse(values)
+
     const job: JobType = await prisma.job.update({
       where: {
         id,
