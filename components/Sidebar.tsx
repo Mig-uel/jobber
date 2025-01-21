@@ -13,7 +13,7 @@ export default function Sidebar() {
   return (
     <aside className='py-4 px-8 bg-muted h-full'>
       <Link href='/'>
-        <Image src={Logo} alt='logo' className='mx-auto' />
+        <Image src={Logo} alt='logo' className='mx-auto' priority />
       </Link>
 
       <div className='flex flex-col mt-20 gap-y-4'>
