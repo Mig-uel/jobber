@@ -2,6 +2,7 @@
 
 import { auth } from '@clerk/nextjs/server'
 import { Prisma } from '@prisma/client'
+import dayjs from 'dayjs'
 import { redirect } from 'next/navigation'
 import prisma from './db'
 import { createAndEditJobSchema, CreateAndEditJobType, JobType } from './types'
@@ -221,6 +222,49 @@ export async function getStats(): Promise<{
     }
 
     return defaultStats
+  } catch (error) {
+    if (error instanceof Error) console.log(error.message)
+
+    return redirect('/jobs')
+  }
+}
+
+/** Get Chart Data */
+export async function getChartData(): Promise<
+  Array<{
+    date: string
+    count: number
+  }>
+> {
+  const clerkId = authenticateOrRedirect()
+  const sixMonthsAgo = dayjs().subtract(6, 'month').toDate()
+
+  try {
+    const jobs = await prisma.job.findMany({
+      where: {
+        clerkId,
+        createdAt: {
+          gte: sixMonthsAgo,
+        },
+      },
+
+      orderBy: {
+        createdAt: 'asc',
+      },
+    })
+
+    const applicationsPerMonth = jobs.reduce((acc, job) => {
+      const date = dayjs(job.createdAt).format('MMM YY')
+
+      const existingEntry = acc.find((entry) => entry.date === date)
+
+      if (existingEntry) existingEntry.count += 1
+      else acc.push({ date, count: 1 })
+
+      return acc
+    }, [] as Array<{ date: string; count: number }>)
+
+    return applicationsPerMonth
   } catch (error) {
     if (error instanceof Error) console.log(error.message)
 
