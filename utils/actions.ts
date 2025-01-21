@@ -4,11 +4,7 @@ import { auth } from '@clerk/nextjs/server'
 import { Prisma } from '@prisma/client'
 import { redirect } from 'next/navigation'
 import prisma from './db'
-import {
-  createAndEditJobSchema,
-  CreateAndEditJobType,
-  JobType
-} from './types'
+import { createAndEditJobSchema, CreateAndEditJobType, JobType } from './types'
 
 /** Authenticate or Redirect */
 function authenticateOrRedirect(): string {
@@ -139,4 +135,26 @@ export async function deleteJob(id: string): Promise<JobType | null> {
     if (error instanceof Error) console.log(error.message)
     return null
   }
+}
+
+/** Get Single Job */
+export async function getSingleJob(id: string): Promise<JobType | null> {
+  let job: JobType | null = null
+  const clerkId = authenticateOrRedirect()
+
+  try {
+    job = await prisma.job.findUnique({
+      where: {
+        id,
+        clerkId,
+      },
+    })
+  } catch (error) {
+    if (error instanceof Error) console.log(error.message)
+    job = null
+  }
+
+  if (!job) redirect('/jobs')
+
+  return job
 }
