@@ -112,7 +112,7 @@ export async function getAllJobs({
     return {
       jobs,
       count,
-      page: 1,
+      page,
       totalPages,
     }
   } catch (error) {
