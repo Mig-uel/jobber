@@ -1,58 +1,74 @@
 'use client'
 
-import * as z from 'zod'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { useForm } from 'react-hook-form'
+import * as zod from 'zod'
 import { Button } from './ui/button'
+import { Form } from './ui/form'
 import {
-  Form,
-  FormControl,
-  FormField,
-  FormItem,
-  FormLabel,
-  FormMessage,
-} from './ui/form'
-import { Input } from './ui/input'
-
-const formSchema = z.object({
-  username: z.string().min(2, {
-    message: 'Username must be at least 2 characters',
-  }),
-})
+  createAndEditJobSchema,
+  CreateAndEditJobType,
+  JobMode,
+  JobStatus,
+} from '@/utils/types'
+import { CustomFormField, CustomFormSelect } from './FormComponents'
 
 export default function AddJobForm() {
-  // define your form
-  const form = useForm<z.infer<typeof formSchema>>({
-    resolver: zodResolver(formSchema),
+  const form = useForm<CreateAndEditJobType>({
+    resolver: zodResolver(createAndEditJobSchema),
     defaultValues: {
-      username: '',
+      position: '',
+      company: '',
+      location: '',
+      mode: JobMode.FullTime,
+      status: JobStatus.Pending,
     },
   })
 
-  // define submit handler
-  const handleSubmit = (values: z.infer<typeof formSchema>) => {
-    // do something with the form values
+  function handleSubmit(values: CreateAndEditJobType) {
     console.log(values)
   }
 
   return (
     <Form {...form}>
-      <form onSubmit={form.handleSubmit(handleSubmit)} className='space-y-8'>
-        <FormField
-          control={form.control}
-          name='username'
-          render={({ field }) => (
-            <FormItem>
-              <FormLabel>Username</FormLabel>
-              <FormControl>
-                <Input placeholder='shadcn' {...field} />
-              </FormControl>
-              <FormMessage />
-            </FormItem>
-          )}
-        />
+      <form
+        onSubmit={form.handleSubmit(handleSubmit)}
+        className='bg-muted p-8 rounded'
+      >
+        <h2 className='capitalize font-semibold text-4xl mb-6'>Add Job</h2>
 
-        <Button type='submit'>Submit</Button>
+        <div className='grid gap-4 md:grid-cols-2  lg:grid-cols-3 items-start'>
+          {/* position */}
+          <CustomFormField name='position' control={form.control} />
+
+          {/* company */}
+          <CustomFormField name='company' control={form.control} />
+
+          {/* location */}
+          <CustomFormField name='location' control={form.control} />
+
+          {/* job status */}
+          <CustomFormSelect
+            name='status'
+            label='Job Status'
+            items={Object.values(JobStatus)}
+            // @ts-expect-error unknown type error
+            control={form.control}
+          />
+
+          {/* job mode */}
+          <CustomFormSelect
+            name='mode'
+            label='Job Mode'
+            items={Object.values(JobMode)}
+            // @ts-expect-error unknown type error
+            control={form.control}
+          />
+
+          <Button type='submit' className='self-end capitalize'>
+            Add Job
+          </Button>
+        </div>
       </form>
     </Form>
   )
