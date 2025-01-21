@@ -1,6 +1,6 @@
-'use client'
-
+import { navLinks } from '@/utils/links'
 import { AlignLeft } from 'lucide-react'
+import Link from 'next/link'
 import { Button } from './ui/button'
 import {
   DropdownMenu,
@@ -8,9 +8,6 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from './ui/dropdown-menu'
-import { navLinks } from '@/utils/links'
-import Link from 'next/link'
-import { useState } from 'react'
 
 export default function LinksDropdown() {
   return (
