@@ -1,0 +1,25 @@
+import * as zod from 'zod'
+
+export type JobType = {
+  id: string
+  createdAt: Date
+  updatedAt: string
+  clerkId: string
+  position: string
+  company: string
+  location: string
+  status: string
+  mode: string
+}
+
+export enum JobStatus {
+  Pending = 'pending',
+  Interview = 'interview',
+  Declined = 'declined',
+}
+
+export enum JobMode {
+  FullTime = 'full-time',
+  PartTime = 'part-time',
+  Internship = 'internship',
+}
