@@ -12,7 +12,7 @@ import { SelectValue } from '@radix-ui/react-select'
 
 type CustomFormFieldProps = {
   name: string
-  control: Control
+  control: Control<any>
 }
 
 export function CustomFormField({ name, control }: CustomFormFieldProps) {
