@@ -1,15 +1,14 @@
 'use server'
 
-import prisma from './db'
 import { auth } from '@clerk/nextjs/server'
+import { Prisma } from '@prisma/client'
 import { redirect } from 'next/navigation'
+import prisma from './db'
 import {
   createAndEditJobSchema,
   CreateAndEditJobType,
-  JobStatus,
-  JobType,
+  JobType
 } from './types'
-import { Prisma } from '@prisma/client'
 
 /** Authenticate or Redirect */
 function authenticateOrRedirect(): string {
@@ -120,5 +119,24 @@ export async function getAllJobs({
       page: 1,
       totalPages: 0,
     }
+  }
+}
+
+/** Delete Job */
+export async function deleteJob(id: string): Promise<JobType | null> {
+  const clerkId = authenticateOrRedirect()
+
+  try {
+    const job: JobType = await prisma.job.delete({
+      where: {
+        id,
+        clerkId,
+      },
+    })
+
+    return job
+  } catch (error) {
+    if (error instanceof Error) console.log(error.message)
+    return null
   }
 }
