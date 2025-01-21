@@ -25,9 +25,9 @@ export default function JobsList() {
 
   const jobs = data?.jobs || []
 
-  if (isPending) return <h2 className='text-xl'>Loading jobs...</h2>
+  if (isPending) return <h2 className='text-xl mt-8'>Loading jobs...</h2>
 
-  if (!jobs.length) return <h2 className='text-xl'>No jobs found :(</h2>
+  if (!jobs.length) return <h2 className='text-xl mt-8'>No jobs found :(</h2>
 
   return (
     <>
