@@ -14,7 +14,7 @@ export default async function Page() {
   await queryClient.prefetchQuery({
     queryKey: ['stats'],
 
-    queryFn: () => getStats,
+    queryFn: () => getStats(),
   })
 
   await queryClient.prefetchQuery({
