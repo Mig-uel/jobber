@@ -4,6 +4,7 @@ import { getAllJobs } from '@/utils/actions'
 import { useQuery } from '@tanstack/react-query'
 import { useSearchParams } from 'next/navigation'
 import JobCard from './JobCard'
+import PaginationContainer from './PaginationContainer'
 
 export default function JobsList() {
   const searchParams = useSearchParams()
@@ -24,6 +25,9 @@ export default function JobsList() {
   })
 
   const jobs = data?.jobs || []
+  const count = data?.count || 0
+  const page = data?.page || 0
+  const totalPages = data?.totalPages || 0
 
   if (isPending) return <h2 className='text-xl mt-8'>Loading jobs...</h2>
 
@@ -31,8 +35,18 @@ export default function JobsList() {
 
   return (
     <>
-      {/* button container */}
-      <div className='grid md:grid-cols-2 gap-8 mt-8'>
+      {/* pagination container */}
+      <div className='flex items-center justify-between mb-8'>
+        <h2 className='text-xl font-semibold capitalize mt-8'>
+          {count} jobs found
+        </h2>
+
+        {totalPages < 2 ? null : (
+          <PaginationContainer currentPage={page} totalPages={totalPages} />
+        )}
+      </div>
+
+      <div className='grid md:grid-cols-2 gap-8'>
         {jobs.map((job) => (
           <JobCard key={job.id} job={job} />
         ))}
