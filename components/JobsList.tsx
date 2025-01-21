@@ -10,7 +10,7 @@ export default function JobsList() {
 
   const search = searchParams.get('search') || ''
   const jobStatus = searchParams.get('jobStatus') || 'all'
-  const pageNumber = Number(searchParams.get('pageNumber')) || 1
+  const pageNumber = Number(searchParams.get('page')) || 1
 
   const { data, isPending } = useQuery({
     queryKey: ['jobs', search, jobStatus, pageNumber],
