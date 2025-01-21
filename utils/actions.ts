@@ -186,3 +186,44 @@ export async function updateJob(
     return null
   }
 }
+
+/** Get Stats */
+export async function getStats(): Promise<{
+  pending: number
+  interview: number
+  declined: number
+}> {
+  const clerkId = authenticateOrRedirect()
+
+  try {
+    const stats = await prisma.job.groupBy({
+      where: {
+        clerkId,
+      },
+
+      by: ['status'],
+
+      _count: {
+        status: true,
+      },
+    })
+
+    const statsObject = stats.reduce((acc, curr) => {
+      acc[curr.status] = curr._count.status
+      return acc
+    }, {} as Record<string, number>)
+
+    const defaultStats = {
+      pending: 0,
+      declined: 0,
+      interview: 0,
+      ...statsObject,
+    }
+
+    return defaultStats
+  } catch (error) {
+    if (error instanceof Error) console.log(error.message)
+
+    return redirect('/jobs')
+  }
+}
