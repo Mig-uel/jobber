@@ -43,7 +43,7 @@ export default function DeleteJobButton({ id }: { id: string }) {
       onClick={handleClick}
       size='sm'
     >
-      Delete
+      {isPending ? 'Deleting...' : 'Delete'}
     </Button>
   )
 }
