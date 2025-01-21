@@ -5,7 +5,7 @@ import { auth } from '@clerk/nextjs/server'
 import { redirect } from 'next/navigation'
 import { createAndEditJobSchema, CreateAndEditJobType, JobType } from './types'
 
-function authenticateAndRedirect(): string {
+function authenticateOrRedirect(): string {
   const { userId } = auth()
 
   if (!userId) redirect('/')
@@ -13,10 +13,10 @@ function authenticateAndRedirect(): string {
   return userId
 }
 
-export async function createJobAction(
+export async function addJob(
   values: CreateAndEditJobType
 ): Promise<JobType | null> {
-  const clerkId = authenticateAndRedirect()
+  const clerkId = authenticateOrRedirect()
 
   try {
     createAndEditJobSchema.parse(values)
