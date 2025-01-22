@@ -2,8 +2,8 @@
 import { getAllJobs } from '@/utils/actions'
 import { useQuery } from '@tanstack/react-query'
 import { useSearchParams } from 'next/navigation'
+import ComplexPaginationContainer from './ComplexPaginationContainer'
 import JobCard from './JobCard'
-import PaginationContainer from './PaginationContainer'
 
 export default function JobsList() {
   const searchParams = useSearchParams()
@@ -41,7 +41,10 @@ export default function JobsList() {
         </h2>
 
         {totalPages < 2 ? null : (
-          <PaginationContainer currentPage={page} totalPages={totalPages} />
+          <ComplexPaginationContainer
+            currentPage={page}
+            totalPages={totalPages}
+          />
         )}
       </div>
 
